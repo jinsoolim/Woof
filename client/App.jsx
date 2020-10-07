@@ -39,7 +39,6 @@ import styledItems from './styled-items';
 // );
 
 
-
 const App = () => {
   // define initialState here as an object
   const initialState = {
@@ -85,7 +84,7 @@ const App = () => {
   const reducer = (state, action) => {
     switch (action.type) {
       // example case:
-      case 'clickLogin': 
+      case 'clickLogin':
         const userInfo = Object.assign({}, state.userInfo);
         userInfo.fullName = action.name;
         userInfo.email = action.email;
@@ -129,7 +128,7 @@ const App = () => {
       //     );
       //   }
       // }
-        
+
       default:
         return state;
     }
