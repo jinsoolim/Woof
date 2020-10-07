@@ -47,7 +47,7 @@ const App = () => {
     // theme: { primary: 'green' }
     userInfo: {
       _id: 564345232,
-      fullName: 'Stormi Hashimoto',
+      fullName: '',
       firstName: 'Stormi',
       location: 'Los Angeles, CA',
       age: '23',
@@ -86,9 +86,13 @@ const App = () => {
     switch (action.type) {
       // example case:
       case 'clickLogin': 
+        const userInfo = Object.assign({}, state.userInfo);
+        userInfo.fullName = action.name;
+        userInfo.email = action.email;
+        userInfo.avatarUrl = action.profileImage;
         return {
           ...state,
-          userInfo: action.userName
+          userInfo
         };
       // example component later in the process...
       // import { useStateValue } from './state';

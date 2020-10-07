@@ -35,21 +35,3 @@ const Header = () => {
 }
 
 export default Header;
-
-// OLD CODE: 
-// const Header = (props) => {
-//   return (
-//     <div>
-//       <nav>
-//         <ul>
-//           <li>
-//             {/* <Link to='bucket-list'>Bucket List</Link> */}
-//           </li>
-//           <li>
-//             {/* <Link to='feed'>Feed</Link> */}
-//           </li>
-//         </ul>
-//       </nav>
-//     </div>
-//   );
-// };
