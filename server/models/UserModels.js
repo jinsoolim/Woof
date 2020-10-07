@@ -11,6 +11,7 @@ const usersSchema = new Schema({
   location: String,
   dog_name: String,
   dog_image: String,
+  dog_age: Number,
   dog_size: String,
   dog_breed: String,
   preferred_activities: [{ activity: String, description: String }],

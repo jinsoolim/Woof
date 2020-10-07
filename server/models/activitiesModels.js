@@ -5,38 +5,31 @@ const Schema = mongoose.Schema;
 const activitiesSchema = new Schema({
   coffee: [
     {
-      user_id: { type: Schema.Types.ObjectId, ref: 'users' },
-      description: String,
-    },
+      user_id: { type: Schema.Types.ObjectId, ref: 'users' }},
   ],
   beach: [
     {
-      user_id: { type: Schema.Types.ObjectId, ref: 'users' },
-      description: String,
+      user_id: { type: Schema.Types.ObjectId, ref: 'users' }
     },
   ],
   music: [
     {
       user_id: { type: Schema.Types.ObjectId, ref: 'users' },
-      description: String,
     },
   ],
   walk: [
     {
       user_id: { type: Schema.Types.ObjectId, ref: 'users' },
-      description: String,
     },
   ],
   hiking: [
     {
       user_id: { type: Schema.Types.ObjectId, ref: 'users' },
-      description: String,
     },
   ],
   brunch: [
     {
       user_id: { type: Schema.Types.ObjectId, ref: 'users' },
-      description: String,
     },
   ],
   timestamps: true,
@@ -44,4 +37,4 @@ const activitiesSchema = new Schema({
 
 module.exports = mongoose.model('activities', activitiesSchema);
 
-// coffee: [{user_id: 524535, description: "i like black coffee"}, { username }]
+// coffee: [{user_id: 524535, description: "i like black coffee"}]
