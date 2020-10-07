@@ -88,7 +88,7 @@ const App = () => {
       case 'clickLogin': 
         return {
           ...state,
-          userName: action.userName
+          userInfo: action.userName
         };
       // example component later in the process...
       // import { useStateValue } from './state';

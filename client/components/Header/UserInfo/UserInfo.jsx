@@ -23,10 +23,20 @@ const UserInfo = () => {
   // CONTEXT API, RELEVENT STATE ELEMENTS
   const [{ userInfo, petInfo }, dispatch] = useStateValue();
   
+
+      //   return (
+      //     <Button
+      //       onClick={() => dispatch({
+      //         type: 'clickLogin',
+      //         userName: textBox.value
+      //       })}>
+
   // conditional rendering on cornerDiv
   let cornerDiv;
   if(userInfo.fullName == '') {
-    cornerDiv = <Register>register</Register>;
+    cornerDiv = <Register onClick={() => dispatch({
+              type: 'clickLogin',
+            })}>register</Register>;
   } else if(petInfo.name == '') {
     cornerDiv = <Register>{userInfo.firstName}</Register>;
   } else {
