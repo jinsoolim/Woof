@@ -3,6 +3,7 @@ import {Link} from "react-router-dom";
 import styled from 'styled-components';
 // CONTEXT API IMPORT
 import { useStateValue , StateContext } from '../../StateProvider';
+// import FacebookLogin from "./FacebookLogin.jsx";
 
 
 const Login = () => {
@@ -10,6 +11,7 @@ const Login = () => {
   const [{ userName }, dispatch] = useStateValue();
   return (
     <div>
+      {/* <FacebookLogin /> */}
     </div>
   );
 }
