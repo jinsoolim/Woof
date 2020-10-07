@@ -18,10 +18,20 @@ const FBLogin = props => {
       setEmail(response.email);
       setName(response.name);
       setPicture(response.picture);
-
+      console.log(`Logging in`); 
       // send user data to DB
-      fetch('/login')
-
+      fetch('/api/login', {
+        method: 'POST',
+        headers: {
+          "Content-Type": "Application/JSON",
+        },
+        body: JSON.stringify(response)
+      })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log('response from server', data);
+      })
+      .catch((err) => console.log('POST: FB info to DB ERROR: ', err));
       // send user to destination
       console.log(`You're logged in ${response.name}`); 
 

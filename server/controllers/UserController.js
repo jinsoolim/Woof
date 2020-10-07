@@ -4,20 +4,21 @@ TODO:
 */
 /* TEST USER
 */
-const person = {
-  full_name: 'Juan Loco',
-  email: 'juan@aol.com',
-  profile_img: 'profile pic',
-  user_age: '20',
-  location: 'your mom\'s house',
-  dog_name: 'Fido'
-};
+// const person = {
+//   full_name: 'Juan Loco',
+//   email: 'juan@aol.com',
+//   profile_img: 'profile pic',
+//   user_age: '20',
+//   location: 'your mom\'s house',
+//   dog_name: 'Fido'
+// };
 
-//const { User } = require('../models/UserModels');
+const { User } = require('../models/UserModels');
 
 const userController = {};
 
 userController.sendUserData = async (req, res, next) => {
+  console.log('sending user data')
   const { userID } = req.params;
   // send user info to FE
   if (!userName) {
@@ -79,14 +80,43 @@ userController.deleteUserData = async (req, res, next) => {
 };
 
 userController.createUser = async (req, res, next) => {
-  const userData = req.body;
+  const { name, email } = req.body;
+  const picURL = req.body.picture.data.url;
+  // TODO: check if user already exists
+  const doesUserExist = await User.find({email:'lol@lol.com'});
+  if (doesUserExist.length === 0) {
+    console.log('============> user exists');
+    // user already exists, no need to create new document   
+  } else {
+    const userData = {
+      full_name: name,
+      first_name: name.split(' ')[0],
+      email,
+      profile_img: picURL
+    };
+    const newUser = new User(userData);
+    newUser.save((err, res) => {
+      if (err) console.log(err);
+    });
+    
+  } 
+    // if so, send to userData middleware
+
   // TODO: verify that userData is valid
-  const newUser = new User(userData);
-  res.locals.data = newUser.save((err, res) => {
-    if (err) console.log(err);
-  });
+  console.log('== FB INFO ==>',userData);
+  try {
+    const queryResult = await User.find({ email });
+    res.locals.data = queryResult;
+  } catch(err) {
+    console.log(err);
+  }
+  console.log('res.locals.data', res.locals.data);
   return next();
 }
+
+const fetchUserData = async (userData) => await User.find(userData);
+
+
 
 
 module.exports = userController;
