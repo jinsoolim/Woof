@@ -1,5 +1,7 @@
-const express = require('express');
 const path = require('path');
+const express = require('express');
+const socketio = require('socket.io');
+const formatMessage = require('../utils/messages');
 const cookieParser = require('cookie-parser');
 const mongoose = require('mongoose');
 const usersRouter = require("./routers/users");
@@ -7,13 +9,15 @@ const mainRouter = require('./routers/main.js')
 const bodyParser = require("body-parser");
 
 // SETTING UP SERVER
-const server = express();
+const app = express();
 const PORT = 3000;
+const server = app.listen(PORT, () => {
+  console.log(`LISTENING ON PORT: ${PORT}`);
+});
+const io = socketio(server);
 
 // ESTABLISH CONNECTION TO DATABASE
-const 
-  MONGO_URI
- = 'mongodb+srv://woof:codesmith123@woof.qaamj.mongodb.net/woof?retryWrites=true&w=majority';
+const MONGO_URI = 'mongodb+srv://woof:codesmith123@woof.qaamj.mongodb.net/woof?retryWrites=true&w=majority';
 
 mongoose
   .connect(MONGO_URI, {
@@ -24,22 +28,31 @@ mongoose
   .catch((err) => console.log(err));
 
 // SET UP
-server.use(express.json());
-server.use(express.urlencoded({ extended: true }));
-server.use(bodyParser.json());
-server.use(bodyParser.urlencoded({ extended: true }));
-server.use(cookieParser());
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cookieParser());
 
-server.use("/api", usersRouter);
-server.use("/main", mainRouter);
 
-// DIRECT ALL INCOMING TRAFFIC TO HOMEPAGE 
-server.use('/', (req, res) => {
+app.use(express.static(path.join(__dirname, '../client/')));
+
+
+app.use("/api", loginRouter);
+app.use("/main", mainRouter);
+
+// DIRECT ALL INCOMING TRAFFIC TO HOMEPAGE
+app.use('/', (req, res) => {
   res.sendFile(path.join(__dirname, '../index.html'));
 });
 
+
+console.log(__dirname);
+
+const botName = 'WoofBot';
+
 // GLOBAL ERROR HANDLER
-server.use((err, req, res, next) => {
+app.use((err, req, res, next) => {
   const defaultErr = {
     log: 'Express error: Unknown middleware',
     status: 500,
@@ -51,11 +64,30 @@ server.use((err, req, res, next) => {
   return res.status(errorObj.status).json(errorObj.message);
 });
 
-server.listen(PORT);
+// Run when a client connects
+io.on('connection', socket => {
+  console.log("A USER CONNECTED!");
+  // socket.on('joinRoom', ({ username, room }) => {
+  // Welcome current user
+  socket.emit('message', formatMessage(botName, 'Welcome to testchat!'))
 
+  // Broadcast when a user connects
+  socket.broadcast.emit('message', formatMessage(botName, 'A user has joined the chat!'));
+  // });
+
+  // Listen for chat message
+  socket.on('chatMessage', msg => {
+    io.emit('message', formatMessage('USER', msg));
+  })
+
+  // Runs when client disconnects
+  socket.on('disconnect', () => {
+    io.emit('message', formatMessage(botName, 'A user has left the chat!'));
+  });
+});
 // STARTUP LOGS
 // console.log(
 //   'Remember to check your .env file if you cannot connect to the database'
 // );
-console.log(`Server is listening at http://localhost:${PORT}`);
-console.log(`Client is live at http://localhost:8080`);
+// console.log(`Server is listening at http://localhost:${PORT}`);
+// console.log(`Client is live at http://localhost:8080`);

@@ -12,6 +12,7 @@ const HeaderBG = styled.div`
   padding: 20px;
   display: flex;
   justify-content: space-between;
+  width: 100%;
 `;
 
 const Logo = styled.div`

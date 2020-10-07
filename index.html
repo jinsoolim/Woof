@@ -15,8 +15,20 @@
   </head>
   <body>
     <!-- <header>THIS LOADS</header> -->
+<<<<<<< HEAD
+    <div id="app" style="width: 100%"></div>
+=======
     <div id="app"></div>
+    <div id="chat-box">
+      <div class="chat-messages"></div>
+    </div>
+    <form id="chat-form">
+      <input id="msg" type="text" required autocomplete="off"/>
+      <button class="btn">Send</button>
+    </form>
+>>>>>>> e74774f070114beac87a9b5f1c94f6ef3c498d5b
     <!-- bundle.js script tag will be automatically injected here by html-webpack-plugin -->
-    <script src="build/bundle.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="bundle.js"></script>
   </body>
 </html>
