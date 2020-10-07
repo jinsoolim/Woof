@@ -3,13 +3,49 @@ import {Link} from "react-router-dom";
 import styled from 'styled-components';
 // CONTEXT API IMPORT
 import { useStateValue , StateContext } from '../../../StateProvider';
+import styledItems from '../../../styled-items';
 
+const Register = styled.div`
+  color: ${styledItems.darkGray};
+  font-size: 1.4em;
+`;
+
+const DisplayInfo = styled.div`
+  color: ${styledItems.darkGray};
+  font-size: 1.4em;
+`;
+
+// const 
+//display: none
+// ${styledItems.hidden}
 
 const UserInfo = () => {
   // CONTEXT API, RELEVENT STATE ELEMENTS
-  const [{ userName }, dispatch] = useStateValue();
+  const [{ userInfo, petInfo }, dispatch] = useStateValue();
+  
+
+      //   return (
+      //     <Button
+      //       onClick={() => dispatch({
+      //         type: 'clickLogin',
+      //         userName: textBox.value
+      //       })}>
+
+  // conditional rendering on cornerDiv
+  let cornerDiv;
+  if(userInfo.fullName == '') {
+    cornerDiv = <Register onClick={() => dispatch({
+              type: 'clickLogin',
+            })}>register</Register>;
+  } else if(petInfo.name == '') {
+    cornerDiv = <Register>{userInfo.firstName}</Register>;
+  } else {
+    cornerDiv = <div><Register>{userInfo.firstName}</Register><Register>{petInfo.name}</Register></div>;
+  }
+  
   return (
     <div>
+      {cornerDiv}
     </div>
   );
 }

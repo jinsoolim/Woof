@@ -13,6 +13,7 @@ import Login from "./components/Login/Login.jsx"
 import ProfilePage from "./components/ProfilePage/ProfilePage.jsx"
 import ChatPage from "./components/ChatPage/ChatPage.jsx"
 import { StateProvider } from './StateProvider';
+import styledItems from './styled-items';
 
 // EXAMPLE STYLECOMPONENT
 // Create a Title component that'll render an <h1> tag with some styles
@@ -87,7 +88,7 @@ const App = () => {
       case 'clickLogin': 
         return {
           ...state,
-          userName: action.userName
+          userInfo: action.userName
         };
       // example component later in the process...
       // import { useStateValue } from './state';
