@@ -1,53 +1,53 @@
-const express = require("express");
-const app = express();
-const path = require("path");
-const cors = require("cors");
+const express = require('express');
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const mongoose = require('mongoose');
+
+// SETTING UP SERVER
+const server = express();
 const PORT = 3000;
-const mongoose = require("mongoose");
 
-const petRouter = require("./routers/pets.js");
-const postRouter = require('./routers/posts');
-const listItemRouter = require('./routers/listItems');
-// uncomment once there is middleware
-// const api = require('./routers/api')
-
-const MONGO_URI =
-  "mongodb+srv://AndrewL:bucketlist@cluster0.00tox.mongodb.net/<dbname>?retryWrites=true&w=majority";
+// ESTABLISH CONNECTION TO DATABASE
+const 
+  MONGO_URI
+ = 'mongodb+srv://woof:codesmith123@woof.qaamj.mongodb.net/woof?retryWrites=true&w=majority';
 
 mongoose
-  .connect(MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
-  .then(() => console.log("CONNECTED TO MONGO DB"));
+  .connect(MONGO_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then(() => console.log('CONNECTED TO MONGO DB'))
+  .catch((err) => console.log(err));
 
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-app.use(cors()); // remember to npm install cors
+// SET UP
+server.use(express.json());
+server.use(express.urlencoded({ extended: true }));
+server.use(cookieParser());
 
-// changed to /api/pet so that it will be routed through the webpack router
-// app.use("/pet", petRouter);
-app.use("/api/pet", petRouter);
-app.use('/api/listItems', listItemRouter);
-app.use('/api/posts', postRouter);
-
-// app.get("/", (req, res) => {
-//   res.sendFile(path.join(__dirname, "../index.html"));
-// });
-
-app.use("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "../index.html"));
+// DIRECT ALL INCOMING TRAFFIC TO HOMEPAGE 
+server.use('/', (req, res) => {
+  res.sendFile(path.join(__dirname, '../index.html'));
 });
 
-// app.post request will trigger controller to Create a New User --> Pushing data to the noSQL database
-
-// Global error handler for catching middleware errors
-app.use((err, req, res, next) => {
-  const defaultError = {
-    log: "Error during unknown middleware",
-    status: 400,
-    message: { err: "Uh-oh, error time, baby! :)" },
+// GLOBAL ERROR HANDLER
+server.use((err, req, res, next) => {
+  const defaultErr = {
+    log: 'Express error: Unknown middleware',
+    status: 500,
+    message: { err: 'An error occurred' },
   };
-  const errorObj = Object.assign({}, defaultError, err);
-  console.log(errorObj.log);
+  const errorObj = { ...defaultErr, err };
+
+  console.log('ERROR LOG => ', errorObj.log);
   return res.status(errorObj.status).json(errorObj.message);
 });
 
-app.listen(PORT, () => console.log(`Listening on PORT: ${PORT}.`));
+server.listen(PORT);
+
+// STARTUP LOGS
+// console.log(
+//   'Remember to check your .env file if you cannot connect to the database'
+// );
+console.log(`Server is listening at http://localhost:${PORT}`);
+console.log(`Client is live at http://localhost:8080`);
