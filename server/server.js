@@ -3,6 +3,7 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const mongoose = require('mongoose');
 const loginRouter = require("./routers/login");
+const mainRouter = require('./routers/main.js')
 const bodyParser = require("body-parser");
 
 // SETTING UP SERVER
@@ -30,6 +31,7 @@ server.use(bodyParser.urlencoded({ extended: true }));
 server.use(cookieParser());
 
 server.use("/api", loginRouter);
+server.use("/main", mainRouter);
 
 // DIRECT ALL INCOMING TRAFFIC TO HOMEPAGE 
 server.use('/', (req, res) => {

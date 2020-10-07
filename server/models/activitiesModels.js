@@ -32,7 +32,7 @@ const activitiesSchema = new Schema({
       user_id: { type: Schema.Types.ObjectId, ref: 'users' },
     },
   ],
-  timestamps: true,
+  // timestamps: true,
 });
 
 module.exports = mongoose.model('activities', activitiesSchema);
