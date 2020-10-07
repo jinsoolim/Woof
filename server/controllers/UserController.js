@@ -80,7 +80,11 @@ userController.deleteUserData = async (req, res, next) => {
 
 userController.createUser = async (req, res, next) => {
   const userData = req.body;
-  console.log(userData);
+  // TODO: verify that userData is valid
+  const newUser = new User(userData);
+  res.locals.data = newUser.save((err, res) => {
+    if (err) console.log(err);
+  });
   return next();
 }
 
