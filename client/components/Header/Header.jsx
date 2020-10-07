@@ -1,10 +1,12 @@
 import React from "react";
 import {Link} from "react-router-dom";
 // CONTEXT API IMPORT
-import { useStateValue , StateContext } from '../StateProvider';
+import { useStateValue , StateContext } from '.../StateProvider.js';
+import UserInfo from './UserInfo/UserInfo.jsx';
 
 
 const Header = () => {
+  // CONTEXT API, RELEVENT STATE ELEMENTS
   const [{ userName }, dispatch] = useStateValue();
   return (
     <div>
@@ -15,9 +17,12 @@ const Header = () => {
         })}>
       Login!
       </Button> */}
+      <UserInfo />
     </div>
   );
 }
+
+export default Header;
 
 // OLD CODE: 
 // const Header = (props) => {
@@ -36,4 +41,3 @@ const Header = () => {
 //     </div>
 //   );
 // };
-export default Header;

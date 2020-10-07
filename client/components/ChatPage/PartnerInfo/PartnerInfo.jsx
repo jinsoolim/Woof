@@ -1,10 +1,10 @@
 import React from "react";
 import {Link} from "react-router-dom";
 // CONTEXT API IMPORT
-import { useStateValue , StateContext } from '..../StateProvider.js';
+import { useStateValue , StateContext } from '..../StateProvider';
 
 
-const UserInfo = () => {
+const PartnerInfo = () => {
   // CONTEXT API, RELEVENT STATE ELEMENTS
   const [{ userName }, dispatch] = useStateValue();
   return (
@@ -13,4 +13,4 @@ const UserInfo = () => {
   );
 }
 
-export default UserInfo;
+export default PartnerInfo;

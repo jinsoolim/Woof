@@ -1,16 +1,17 @@
 import React from "react";
 import {Link} from "react-router-dom";
 // CONTEXT API IMPORT
-import { useStateValue , StateContext } from '..../StateProvider.js';
+import { useStateValue , StateContext } from '..../StateProvider';
 
 
-const UserInfo = () => {
+const Profile = () => {
   // CONTEXT API, RELEVENT STATE ELEMENTS
   const [{ userName }, dispatch] = useStateValue();
   return (
     <div>
+
     </div>
   );
 }
 
-export default UserInfo;
+export default Profile;
