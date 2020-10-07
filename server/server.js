@@ -2,7 +2,7 @@ const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const mongoose = require('mongoose');
-const loginRouter = require("./routers/login");
+const usersRouter = require("./routers/users");
 const mainRouter = require('./routers/main.js')
 const bodyParser = require("body-parser");
 
@@ -30,7 +30,7 @@ server.use(bodyParser.json());
 server.use(bodyParser.urlencoded({ extended: true }));
 server.use(cookieParser());
 
-server.use("/api", loginRouter);
+server.use("/api", usersRouter);
 server.use("/main", mainRouter);
 
 // DIRECT ALL INCOMING TRAFFIC TO HOMEPAGE 
