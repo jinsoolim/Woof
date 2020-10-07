@@ -82,12 +82,13 @@ userController.deleteUserData = async (req, res, next) => {
 userController.createUser = async (req, res, next) => {
   const { name, email } = req.body;
   const picURL = req.body.picture.data.url;
+  
   // TODO: check if user already exists
-  const doesUserExist = await User.find({email:'lol@lol.com'});
+  const doesUserExist = await User.find({ email });
+
+  // user already exists, no need to create new document   
   if (doesUserExist.length === 0) {
-    console.log('============> user exists');
-    // user already exists, no need to create new document   
-  } else {
+    console.log('============> user does not exist');
     const userData = {
       full_name: name,
       first_name: name.split(' ')[0],
@@ -98,23 +99,19 @@ userController.createUser = async (req, res, next) => {
     newUser.save((err, res) => {
       if (err) console.log(err);
     });
-    
-  } 
-    // if so, send to userData middleware
-
-  // TODO: verify that userData is valid
-  console.log('== FB INFO ==>',userData);
-  try {
-    const queryResult = await User.find({ email });
-    res.locals.data = queryResult;
-  } catch(err) {
-    console.log(err);
-  }
-  console.log('res.locals.data', res.locals.data);
+    res.locals.data = fetchUserData({ email });
+  } else {
+    console.log('============> user exists');
+    res.locals.data = doesUserExist;
+  }   
   return next();
 }
 
-const fetchUserData = async (userData) => await User.find(userData);
+const fetchUserData = async (userData) => {
+  const result = await User.find(userData);
+  console.log('result', result)
+  return result; 
+}
 
 
 
