@@ -5,6 +5,7 @@ const formatMessage = require('../utils/messages');
 const cookieParser = require('cookie-parser');
 const mongoose = require('mongoose');
 const loginRouter = require("./routers/login");
+const mainRouter = require('./routers/main.js')
 const bodyParser = require("body-parser");
 
 // SETTING UP SERVER
@@ -27,19 +28,21 @@ mongoose
   .catch((err) => console.log(err));
 
 // SET UP
-server.use(express.json());
-server.use(express.urlencoded({ extended: true }));
-server.use(bodyParser.json());
-server.use(bodyParser.urlencoded({ extended: true }));
-server.use(cookieParser());
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cookieParser());
 
 
 app.use(express.static(path.join(__dirname, '../client/')));
 
-server.use("/api", loginRouter);
+
+app.use("/api", loginRouter);
+app.use("/main", mainRouter);
 
 // DIRECT ALL INCOMING TRAFFIC TO HOMEPAGE
-server.use('/', (req, res) => {
+app.use('/', (req, res) => {
   res.sendFile(path.join(__dirname, '../index.html'));
 });
 
