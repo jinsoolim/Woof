@@ -11,8 +11,7 @@ import Header from "./components/Header/Header.jsx"
 import Login from "./components/Login/Login.jsx"
 import ProfilePage from "./components/ProfilePage/ProfilePage.jsx"
 import ChatPage from "./components/ChatPage/ChatPage.jsx"
-import { StateProvider } from './state';
-import reducers from './reducers/reducers.js'
+import { StateProvider } from './StateProvider';
 
 const App = () => {
   // define initialState here as an object
@@ -75,6 +74,7 @@ const App = () => {
     // CONTEXT API: everything inside of StateProvider will now be able to access state
     <StateProvider initialState={initialState} reducer={reducer}>
       <Header />
+      <div>HELLLO</div>
       <div>
         <Router>
           <Switch>
