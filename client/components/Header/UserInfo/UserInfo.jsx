@@ -24,7 +24,19 @@ const UserInfo = () => {
   const responseFacebook = response => {
     if (response.accessToken) {
       // send user data to DB
-      fetch('/login')
+      fetch('/api/login', {
+        method: 'POST',
+        headers: {
+          "Content-Type": "Application/JSON",
+        },
+        body: JSON.stringify(response)
+      })
+      .then((res) => res.json())
+      .then((data) => {
+        // data contains email, first_name, full_name, profile_img
+        console.log('response from server', data);
+      })
+      .catch((err) => console.log('POST: FB info to DB ERROR: ', err));
 
       // send user to destination
       console.log(`You're logged in ${response.name}, ${response.email}, ${response.picture.data.url}`); 
@@ -50,7 +62,7 @@ const UserInfo = () => {
   } else if(petInfo.name == '') {
     cornerDiv = <Register>{userInfo.firstName}</Register>;
   } else {
-    console.log(JSON.stringify(userInfo));
+    //console.log(JSON.stringify(userInfo));
     cornerDiv = <div><Register>{userInfo.firstName}</Register><Register>{petInfo.name}</Register></div>;
   }
   
