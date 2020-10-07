@@ -8,6 +8,7 @@ const mongoose = require("mongoose");
 const petRouter = require("./routers/pets.js");
 const postRouter = require('./routers/posts');
 const listItemRouter = require('./routers/listItems');
+const userRouter = require('./controllers/UserController.js');
 // uncomment once there is middleware
 // const api = require('./routers/api')
 
@@ -24,6 +25,7 @@ app.use(cors()); // remember to npm install cors
 
 // changed to /api/pet so that it will be routed through the webpack router
 // app.use("/pet", petRouter);
+//app.use("/api/user", userRouter);
 app.use("/api/pet", petRouter);
 app.use('/api/listItems', listItemRouter);
 app.use('/api/posts', postRouter);
