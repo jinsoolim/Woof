@@ -4,6 +4,8 @@ const socketio = require('socket.io');
 const formatMessage = require('../utils/messages');
 const cookieParser = require('cookie-parser');
 const mongoose = require('mongoose');
+const loginRouter = require("./routers/login");
+const bodyParser = require("body-parser");
 
 // SETTING UP SERVER
 const app = express();
@@ -25,15 +27,19 @@ mongoose
   .catch((err) => console.log(err));
 
 // SET UP
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-app.use(cookieParser());
+server.use(express.json());
+server.use(express.urlencoded({ extended: true }));
+server.use(bodyParser.json());
+server.use(bodyParser.urlencoded({ extended: true }));
+server.use(cookieParser());
 
 
 app.use(express.static(path.join(__dirname, '../client/')));
 
+server.use("/api", loginRouter);
+
 // DIRECT ALL INCOMING TRAFFIC TO HOMEPAGE
-app.get('/', (req, res) => {
+server.use('/', (req, res) => {
   res.sendFile(path.join(__dirname, '../index.html'));
 });
 

@@ -13,6 +13,7 @@ import Login from "./components/Login/Login.jsx"
 import ProfilePage from "./components/ProfilePage/ProfilePage.jsx"
 import ChatPage from "./components/ChatPage/ChatPage.jsx"
 import { StateProvider } from './StateProvider';
+import styledItems from './styled-items';
 
 // EXAMPLE STYLECOMPONENT
 // Create a Title component that'll render an <h1> tag with some styles
@@ -94,7 +95,7 @@ const App = () => {
     // theme: { primary: 'green' }
     userInfo: {
       _id: 564345232,
-      fullName: 'Stormi Hashimoto',
+      fullName: '',
       firstName: 'Stormi',
       location: 'Los Angeles, CA',
       age: '23',
@@ -133,9 +134,13 @@ const App = () => {
     switch (action.type) {
       // example case:
       case 'clickLogin':
+        const userInfo = Object.assign({}, state.userInfo);
+        userInfo.fullName = action.name;
+        userInfo.email = action.email;
+        userInfo.avatarUrl = action.profileImage;
         return {
           ...state,
-          userName: action.userName
+          userInfo
         };
       // example component later in the process...
       // import { useStateValue } from './state';
