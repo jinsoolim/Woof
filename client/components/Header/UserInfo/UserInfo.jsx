@@ -11,6 +11,13 @@ const UserInfo = () => {
   const [{ userName }, dispatch] = useStateValue();
   return (
     <div>
+            {/* <Button
+      onClick={() => dispatch({
+      type: 'clickLogin',
+      userName: textBox.value
+        })}>
+      Login!
+      </Button> */}
     </div>
   );
 }
