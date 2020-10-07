@@ -99,18 +99,10 @@ const App = () => {
   const reducer = (state, action) => {
     let userInfo;
     switch (action.type) {
-<<<<<<< HEAD
-      // login with facebook button
-      case 'clickLogin': 
-        userInfo = Object.assign({}, state.userInfo);
-        userInfo.fullName = action.full_name;
-        userInfo.firstName = action.first_name;
-=======
       // example case:
       case 'clickLogin':
         const userInfo = Object.assign({}, state.userInfo);
         userInfo.fullName = action.name;
->>>>>>> e74774f070114beac87a9b5f1c94f6ef3c498d5b
         userInfo.email = action.email;
         userInfo.avatarUrl = action.profile_img;
         userInfo._id = action.id

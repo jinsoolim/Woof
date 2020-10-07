@@ -38,7 +38,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, '../client/')));
 
 
-app.use("/api", loginRouter);
+app.use("/api", usersRouter);
 app.use("/main", mainRouter);
 
 // DIRECT ALL INCOMING TRAFFIC TO HOMEPAGE
