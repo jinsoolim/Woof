@@ -1,10 +1,16 @@
 import React, {Component} from "react";
 import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
 // import './styles.css';
-import Login from "./components/Login.jsx";
-import Feed from "./components/Feed.jsx";
-import Signup from "./components/Signup.jsx";
-import Bucketlist from "./components/Bucketlist.jsx";
+// OLD IMPORTS
+// import Login from "./components/Login.jsx";
+// import Feed from "./components/Feed.jsx";
+// import Signup from "./components/Signup.jsx";
+// import Bucketlist from "./components/Bucketlist.jsx";
+
+import Header from "./components/Header/Header.jsx"
+import Login from "./components/Login/Login.jsx"
+import ProfilePage from "./components/ProfilePage/ProfilePage.jsx"
+import ChatPage from "./components/ChatPage/ChatPage.jsx"
 import { StateProvider } from './state';
 import reducers from './reducers/reducers.js'
 
@@ -68,13 +74,13 @@ const App = () => {
   return (
     // CONTEXT API: everything inside of StateProvider will now be able to access state
     <StateProvider initialState={initialState} reducer={reducer}>
+      <Header />
       <div>
         <Router>
           <Switch>
             <Route exact path='/login' component={Login} />
-            <Route exact path='/signup' component={Signup} />
-            <Route exact path='/feed' component={Feed} />
-            <Route exact path='/bucket-list' component={Bucketlist} />
+            <Route exact path='/profilepage' component={ProfilePage} />
+            <Route exact path='/chatpage' component={ChatPage} />
             <Route exact path='/' component={Login} />
           </Switch>
         </Router>
