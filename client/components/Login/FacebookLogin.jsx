@@ -34,8 +34,6 @@ const FBLogin = props => {
       .catch((err) => console.log('POST: FB info to DB ERROR: ', err));
       // send user to destination
       console.log(`You're logged in ${response.name}`); 
-
-
     }
   }
 
