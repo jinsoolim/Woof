@@ -33,7 +33,7 @@ const FBLogin = props => {
       <FacebookLogin 
       appId="371520144220769"
       autoLoad={true}
-      fields="name, email,picture"
+      fields="name, email, picture"
       onClick={handleClick}
       callback={responseFacebook}
       />
