@@ -1,5 +1,5 @@
-import React, {Component} from "react";
-import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
+import React, {Component, useEffect} from "react";
+import {BrowserRouter as Router, Route, Switch, Redirect} from "react-router-dom";
 import styled from 'styled-components';
 // import './styles.css';
 // OLD IMPORTS
@@ -12,7 +12,7 @@ import Header from "./components/Header/Header.jsx"
 import Login from "./components/Login/Login.jsx"
 import ProfilePage from "./components/ProfilePage/ProfilePage.jsx"
 import ChatPage from "./components/ChatPage/ChatPage.jsx"
-import { StateProvider } from './StateProvider';
+import { StateProvider, useStateValue} from './StateProvider';
 import styledItems from './styled-items';
 
 // EXAMPLE STYLECOMPONENT
@@ -37,20 +37,34 @@ import styledItems from './styled-items';
 //     </Title>
 //   </Wrapper>
 // );
+const RouterDiv = styled.div`
+      width: 85%;
+      background-color: ${styledItems.white};
+      min-height: 1000px;
+      display: flex;
+      justify-content: center;
+`;
 
+const StyledDiv = styled.div`
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+`;
 
 const App = () => {
+
   // define initialState here as an object
   const initialState = {
     // example initial state:
     // theme: { primary: 'green' }
     userInfo: {
-      _id: 564345232,
+      _id: 0,
       fullName: '',
       firstName: 'Stormi',
       location: 'Los Angeles, CA',
       age: '23',
-      avatarUrl: 'https://www.facebook.com/photo/?fbid=2414282795276108&set=a.141715079199569',
+      avatarUrl: '',
       activities: { coffee: 'i like starbucks', },
     },
     petInfo: {
@@ -67,7 +81,7 @@ const App = () => {
       location: 'New York, NY',
       age: '30',
       avatarUrl: '',
-      activities: { coffee: 'i like mcdonalds coffee', },
+      activities: { },
       petInfo: {
         name: 'Tully',
         age: '7',
@@ -79,19 +93,39 @@ const App = () => {
     chatItems: {},
     matchList: [{_id: 564345532, firstName: 'Gary', petName: 'Tully'}],
     mainMatch: false,
+    loggedIn: false,
   };
 
   const reducer = (state, action) => {
+    let userInfo;
     switch (action.type) {
+<<<<<<< HEAD
+      // login with facebook button
+      case 'clickLogin': 
+        userInfo = Object.assign({}, state.userInfo);
+        userInfo.fullName = action.full_name;
+        userInfo.firstName = action.first_name;
+=======
       // example case:
       case 'clickLogin':
         const userInfo = Object.assign({}, state.userInfo);
         userInfo.fullName = action.name;
+>>>>>>> e74774f070114beac87a9b5f1c94f6ef3c498d5b
         userInfo.email = action.email;
-        userInfo.avatarUrl = action.profileImage;
+        userInfo.avatarUrl = action.profile_img;
+        userInfo._id = action.id
         return {
           ...state,
-          userInfo
+          userInfo,
+          loggedIn: true,
+        };
+
+        case 'addActivity': 
+        userInfo = Object.assign({}, state.userInfo);
+        userInfo.activities[action.activity] = `i like ${action.activity}`;
+        return {
+          ...state,
+          userInfo,
         };
       // example component later in the process...
       // import { useStateValue } from './state';
@@ -137,18 +171,20 @@ const App = () => {
   return (
     // CONTEXT API: everything inside of StateProvider will now be able to access state
     <StateProvider initialState={initialState} reducer={reducer}>
-      <Header />
-      <div>HELLLO</div>
-      <div>
-        <Router>
-          <Switch>
-            <Route exact path='/login' component={Login} />
-            <Route exact path='/profilepage' component={ProfilePage} />
-            <Route exact path='/chatpage' component={ChatPage} />
-            <Route exact path='/' component={Login} />
-          </Switch>
-        </Router>
-      </div>
+      <StyledDiv>
+          <Router>
+            <Header />
+      <RouterDiv>
+            
+            <Switch>
+              {/* <Route exact path='/login' component={Login} /> */}
+              <Route exact path='/' component={Login} />
+              <Route exact path='/chatpage' component={ChatPage} />
+              <Route exact path='/profilepage' component={ProfilePage} />
+            </Switch>
+        </RouterDiv>
+          </Router>
+      </StyledDiv>
     </StateProvider>
   );
 };
