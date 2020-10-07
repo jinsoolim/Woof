@@ -2,6 +2,7 @@ const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const mongoose = require('mongoose');
+const loginRouter = require("./routers/login");
 
 // SETTING UP SERVER
 const server = express();
@@ -24,6 +25,8 @@ mongoose
 server.use(express.json());
 server.use(express.urlencoded({ extended: true }));
 server.use(cookieParser());
+
+server.use("/api", loginRouter);
 
 // DIRECT ALL INCOMING TRAFFIC TO HOMEPAGE 
 server.use('/', (req, res) => {

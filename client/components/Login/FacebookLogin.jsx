@@ -19,8 +19,13 @@ const FBLogin = props => {
       setName(response.name);
       setPicture(response.picture);
 
+      // send user data to DB
+      fetch('/login')
+
       // send user to destination
       console.log(`You're logged in ${response.name}`); 
+
+
     }
   }
 
