@@ -37,7 +37,20 @@ import styledItems from './styled-items';
 //     </Title>
 //   </Wrapper>
 // );
+const RouterDiv = styled.div`
+      width: 85%;
+      background-color: ${styledItems.white};
+      min-height: 1000px;
+      display: flex;
+      justify-content: center;
+`;
 
+const StyledDiv = styled.div`
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+`;
 
 
 const App = () => {
@@ -138,18 +151,19 @@ const App = () => {
   return (
     // CONTEXT API: everything inside of StateProvider will now be able to access state
     <StateProvider initialState={initialState} reducer={reducer}>
-      <Header />
-      <div>HELLLO</div>
-      <div>
-        <Router>
-          <Switch>
-            <Route exact path='/login' component={Login} />
-            <Route exact path='/profilepage' component={ProfilePage} />
-            <Route exact path='/chatpage' component={ChatPage} />
-            <Route exact path='/' component={Login} />
-          </Switch>
-        </Router>
-      </div>
+      <StyledDiv>
+        <Header />
+        <RouterDiv>
+          <Router>
+            <Switch>
+              <Route exact path='/login' component={Login} />
+              <Route exact path='/profilepage' component={ProfilePage} />
+              <Route exact path='/chatpage' component={ChatPage} />
+              <Route exact path='/' component={Login} />
+            </Switch>
+          </Router>
+        </RouterDiv>
+      </StyledDiv>
     </StateProvider>
   );
 };

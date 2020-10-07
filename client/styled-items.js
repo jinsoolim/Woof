@@ -5,6 +5,7 @@ const styledItems = {
   darkGray: '#4A4A4A',
   lightGray: '#575757',
   hidden: 'display: none',
+  white: '#FFFFFF',
 };
 
 export default styledItems;

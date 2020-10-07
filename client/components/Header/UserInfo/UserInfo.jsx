@@ -29,7 +29,8 @@ const UserInfo = () => {
       // send user to destination
       console.log(`You're logged in ${response.name}, ${response.email}, ${response.picture.data.url}`); 
 
-      dispatch({ type: 'clickLogin',
+      dispatch({ 
+                type: 'clickLogin',
                 name: response.name,
                 email: response.email,
                 profileImage: response.picture.data.url,

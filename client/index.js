@@ -3,4 +3,4 @@ import { render } from 'react-dom';
 import App from './App.jsx';
 import './styles.css';
 
-render(<App />, document.getElementById('app'));
+render(<App style="width: 100%; display: flex; justify-content: center;"/>, document.getElementById('app'));
