@@ -8,10 +8,15 @@ import UserInfo from './UserInfo/UserInfo.jsx';
 
 const HeaderBG = styled.div`
   background-color: ${styledItems.primaryBlue};
-  font-size: 2em;
-  color: ${styledItems.darkGray};
   height: 130px;
   padding: 20px;
+  display: flex;
+  justify-content: space-between;
+`;
+
+const Logo = styled.div`
+  font-size: 2em; 
+  color: ${styledItems.darkGray};
   font-weight: 100;
 `;
 
@@ -23,7 +28,7 @@ const BlackText = styled.span`
 const Header = () => {
   return (
     <HeaderBG>
-      Coffee<BlackText>&</BlackText>Woof
+      <Logo>Coffee<BlackText>&</BlackText>Woof</Logo>
       <UserInfo />
     </HeaderBG>
   );
