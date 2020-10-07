@@ -1,5 +1,5 @@
-import React, {Component} from "react";
-import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
+import React, {Component, useEffect} from "react";
+import {BrowserRouter as Router, Route, Switch, Redirect} from "react-router-dom";
 import styled from 'styled-components';
 // import './styles.css';
 // OLD IMPORTS
@@ -12,7 +12,7 @@ import Header from "./components/Header/Header.jsx"
 import Login from "./components/Login/Login.jsx"
 import ProfilePage from "./components/ProfilePage/ProfilePage.jsx"
 import ChatPage from "./components/ChatPage/ChatPage.jsx"
-import { StateProvider } from './StateProvider';
+import { StateProvider, useStateValue} from './StateProvider';
 import styledItems from './styled-items';
 
 // EXAMPLE STYLECOMPONENT
@@ -54,17 +54,18 @@ const StyledDiv = styled.div`
 
 
 const App = () => {
+
   // define initialState here as an object
   const initialState = {
     // example initial state:
     // theme: { primary: 'green' }
     userInfo: {
-      _id: 564345232,
+      _id: 0,
       fullName: '',
       firstName: 'Stormi',
       location: 'Los Angeles, CA',
       age: '23',
-      avatarUrl: 'https://www.facebook.com/photo/?fbid=2414282795276108&set=a.141715079199569',
+      avatarUrl: '',
       activities: { coffee: 'i like starbucks', },
     },
     petInfo: {
@@ -81,7 +82,7 @@ const App = () => {
       location: 'New York, NY',
       age: '30',
       avatarUrl: '',
-      activities: { coffee: 'i like mcdonalds coffee', },
+      activities: { },
       petInfo: {
         name: 'Tully',
         age: '7',
@@ -93,22 +94,32 @@ const App = () => {
     chatItems: {},
     matchList: [{_id: 564345532, firstName: 'Gary', petName: 'Tully'}],
     mainMatch: false,
+    loggedIn: false,
   };
 
   const reducer = (state, action) => {
+    let userInfo;
     switch (action.type) {
       // login with facebook button
       case 'clickLogin': 
-        const userInfo = Object.assign({}, state.userInfo);
+        userInfo = Object.assign({}, state.userInfo);
         userInfo.fullName = action.full_name;
         userInfo.firstName = action.first_name;
         userInfo.email = action.email;
         userInfo.avatarUrl = action.profile_img;
         userInfo._id = action.id
-        console.log(userInfo);
         return {
           ...state,
-          userInfo
+          userInfo,
+          loggedIn: true,
+        };
+
+        case 'addActivity': 
+        userInfo = Object.assign({}, state.userInfo);
+        userInfo.activities[action.activity] = `i like ${action.activity}`;
+        return {
+          ...state,
+          userInfo,
         };
       // example component later in the process...
       // import { useStateValue } from './state';
@@ -155,17 +166,18 @@ const App = () => {
     // CONTEXT API: everything inside of StateProvider will now be able to access state
     <StateProvider initialState={initialState} reducer={reducer}>
       <StyledDiv>
-        <Header />
-        <RouterDiv>
           <Router>
+            <Header />
+      <RouterDiv>
+            
             <Switch>
-              <Route exact path='/login' component={Login} />
-              <Route exact path='/profilepage' component={ProfilePage} />
-              <Route exact path='/chatpage' component={ChatPage} />
+              {/* <Route exact path='/login' component={Login} /> */}
               <Route exact path='/' component={Login} />
+              <Route exact path='/chatpage' component={ChatPage} />
+              <Route exact path='/profilepage' component={ProfilePage} />
             </Switch>
-          </Router>
         </RouterDiv>
+          </Router>
       </StyledDiv>
     </StateProvider>
   );

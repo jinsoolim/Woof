@@ -1,5 +1,6 @@
 import React from "react";
 import {Link} from "react-router-dom";
+// import {useHistory} from "react-router";
 import styled from 'styled-components';
 // CONTEXT API IMPORT
 import { useStateValue , StateContext } from '../../../StateProvider';
@@ -43,7 +44,7 @@ const UserInfo = () => {
           email: info.email,
           profile_img: info.profile_img,
           id: info._id,
-        })
+        });
       })
       .catch((err) => console.log('POST: FB info to DB ERROR: ', err));
 
@@ -56,7 +57,7 @@ const UserInfo = () => {
   let cornerDiv;
   if(userInfo.fullName == '') {
     cornerDiv = 
-      <FacebookLogin 
+     <FacebookLogin 
         fields="name, email, picture" 
         appId="371520144220769" 
         callback={responseFacebook} 
@@ -71,7 +72,7 @@ const UserInfo = () => {
   
   return (
     <div>
-      {cornerDiv}
+       <Link to="/profilepage">{cornerDiv}</Link>
     </div>
   );
 }
