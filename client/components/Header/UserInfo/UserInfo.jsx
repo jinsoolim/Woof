@@ -33,8 +33,6 @@ const UserInfo = () => {
     cornerDiv = <div><Register>{userInfo.firstName}</Register><Register>{petInfo.name}</Register></div>;
   }
   
-  
-  
   return (
     <div>
       {cornerDiv}
