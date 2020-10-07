@@ -1,7 +1,7 @@
 import React from "react";
 import {Link} from "react-router-dom";
 // CONTEXT API IMPORT
-import { useStateValue , StateContext } from '.../StateProvider';
+import { useStateValue , StateContext } from '../../StateProvider';
 
 
 const Login = () => {
