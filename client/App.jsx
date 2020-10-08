@@ -1,12 +1,6 @@
 import React, {Component, useEffect} from "react";
 import {BrowserRouter as Router, Route, Switch, Redirect} from "react-router-dom";
 import styled from 'styled-components';
-// import './styles.css';
-// OLD IMPORTS
-// import Login from "./components/Login.jsx";
-// import Feed from "./components/Feed.jsx";
-// import Signup from "./components/Signup.jsx";
-// import Bucketlist from "./components/Bucketlist.jsx";
 
 import Header from "./components/Header/Header.jsx"
 import Login from "./components/Login/Login.jsx"
@@ -15,28 +9,6 @@ import ChatPage from "./components/ChatPage/ChatPage.jsx"
 import { StateProvider, useStateValue} from './StateProvider';
 import styledItems from './styled-items';
 
-// EXAMPLE STYLECOMPONENT
-// Create a Title component that'll render an <h1> tag with some styles
-// const Title = styled.h1`
-//   font-size: 1.5em;
-//   text-align: center;
-//   color: palevioletred;
-// `;
-
-// // Create a Wrapper component that'll render a <section> tag with some styles
-// const Wrapper = styled.section`
-//   padding: 4em;
-//   background: papayawhip;
-// `;
-
-// // Use Title and Wrapper like any other React component – except they're styled!
-// render(
-//   <Wrapper>
-//     <Title>
-//       Hello World!
-//     </Title>
-//   </Wrapper>
-// );
 const RouterDiv = styled.div`
       width: 85%;
       background-color: ${styledItems.white};
@@ -59,9 +31,9 @@ const App = () => {
     userInfo: {
       _id: 0,
       fullName: '',
-      firstName: 'Stormi',
-      location: 'Los Angeles, CA',
-      age: '23',
+      firstName: '',
+      location: '',
+      age: '',
       avatarUrl: '',
       activities: { },
     },
@@ -126,7 +98,7 @@ const App = () => {
           petInfo = Object.assign({}, state.petInfo);
           userInfo.location = action.userInfo.location;
           userInfo.age = action.userInfo.age;
-          // userInfo.activities = action.userInfo.activities;
+          userInfo.activities = action.userInfo.activities;
           petInfo.name = action.petInfo.name;
           petInfo.age = action.petInfo.age;
           petInfo.breed = action.petInfo.breed;
@@ -184,17 +156,16 @@ const App = () => {
     // CONTEXT API: everything inside of StateProvider will now be able to access state
     <StateProvider initialState={initialState} reducer={reducer}>
       <StyledDiv>
-          <Router>
-            <Header />
-      <RouterDiv>
-            
+        <Router>
+          <Header />
+          <RouterDiv>
             <Switch>
               <Route exact path='/' component={Login} />
               <Route exact path='/chatpage' component={ChatPage} />
               <Route exact path='/profilepage' component={ProfilePage} />
             </Switch>
-        </RouterDiv>
-          </Router>
+          </RouterDiv>
+        </Router>
       </StyledDiv>
     </StateProvider>
   );

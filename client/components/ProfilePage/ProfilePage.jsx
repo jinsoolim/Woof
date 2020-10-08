@@ -52,6 +52,14 @@ class ProfilePage extends Component {
       petBreed: '',
       petSize: '',
       petAvatar: '',
+      Coffee: '',
+      Hiking: '',
+      Birdwatch: '',
+      Running: '',
+      Fetch: '',
+      Swimming: '',
+      Grooming: '',
+      Beach: '',
     }
     this.handleChange = this.handleChange.bind(this);
   }
@@ -64,30 +72,76 @@ class ProfilePage extends Component {
     })
   }
 
+  componentDidMount() {
+    const [{ userInfo, petInfo }, dispatch] = this.context;
+    this.setState({
+      userLocation: userInfo.location,
+      userAge: userInfo.age,
+      petName: petInfo.name,
+      petAge: petInfo.age,
+      petBreed: petInfo.breed,
+      petSize: petInfo.size,
+      petAvatar: petInfo.avatarUrl,
+      Coffee: userInfo.activities.Coffee || '',
+      Hiking: userInfo.activities.Hiking || '',
+      Birdwatch: userInfo.activities.Birdwatch || '',
+      Running: userInfo.activities.Running || '',
+      Fetch: userInfo.activities.Fetch || '',
+      Swimming: userInfo.activities.Swimming || '',
+      Grooming: userInfo.activities.Grooming || '',
+      Beach: userInfo.activities.Beach || '',
+    })
+  }
+
   static contextType = StateContext;
   render() {
     const [{ userInfo, petInfo }, dispatch] = this.context;
 
     const saveProfile = () => {
+      const stockActivities = [
+        'Coffee',
+        'Hiking',
+        'Birdwatch',
+        'Running',
+        'Fetch',
+        'Swimming',
+        'Grooming',
+        'Beach',
+      ];
+
+      const userInfo = {
+        location: this.state.userLocation,
+        age: this.state.userAge,
+        activities: {},
+      };
+
+      const petInfo = {
+        name: this.state.petName,
+        age: this.state.petAge,
+        breed: this.state.petBreed,
+        size: this.state.petSize,
+        avatarUrl: this.state.petAvatar,
+      }
+
+      stockActivities.forEach(activity => {
+        if(this.state[activity] != '') {
+          userInfo.activities[activity] = this.state[activity];
+        }
+      })
+      console.log(this.state);
+      console.log(stockActivities);
+      console.log(userInfo);
+
       dispatch({ 
         type: 'saveProfile',
-        userInfo: {
-          location: this.state.userLocation,
-          age: this.state.userAge,
-        },
-        petInfo: {
-          name: this.state.petName,
-          age: this.state.petAge,
-          breed: this.state.petBreed,
-          size: this.state.petSize,
-          avatarUrl: this.state.petAvatar,
-        }
+        userInfo,
+        petInfo,
       });
     }
 
     return (
       <OuterDiv>
-        <Activities />
+        <Activities handleChange = {this.handleChange} state = {this.state}/>
         <RightDiv>
           <Profile handleChange = {this.handleChange} state = {this.state}/>
           <Link to='/chatpage'><SaveButton onClick={() => {saveProfile()}}>Save</SaveButton></Link>

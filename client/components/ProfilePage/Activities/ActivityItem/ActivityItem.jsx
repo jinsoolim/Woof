@@ -45,15 +45,17 @@ const StyledInput = styled.input`
 const ActivityItem = (props) => {
   // CONTEXT API, RELEVENT STATE ELEMENTS
   const activityName = props.activity;
+  const actId = props.id;
   const [{ userInfo }, dispatch] = useStateValue();
-  let showform = 'none';
+
   let formItem;
   if(activityName in userInfo.activities) {
     formItem = 
     <StyledForm  >
-      <StyledInput type="input" placeholder = {`I like ${activityName}`}/>
+      <StyledInput type="input" name={props.activity} value={props.state[activityName]} onChange={props.handleChange} placeholder = {`I like ${activityName}`}/>
     </StyledForm>;
   }
+
   return (
     <OuterDiv>
       <ButtonDiv onClick={() => {dispatch({ 
@@ -66,28 +68,5 @@ const ActivityItem = (props) => {
     </OuterDiv>
   );
 }
-
-
-// class ActivityItem extends Component {
-//   static contextType = StateContext;
-//   render() {
-//     // const [{ userInfo }, dispatch] = this.context;
-//     return (
-//       <OuterDiv>
-//         <ButtonDiv onClick={() => {dispatch({ 
-//             type: 'addActivity',
-//             activity: activityName,
-//           });
-//           console.log(userInfo.activities);
-//           showForm = 'block'}}>
-//           {activityName}
-//         </ButtonDiv>
-//         <StyledForm>
-//           <StyledInput type="input" placeholder="I like walks to starbucks"/>
-//         </StyledForm>
-//       </OuterDiv>
-//     );
-//   }
-// }
 
 export default ActivityItem;

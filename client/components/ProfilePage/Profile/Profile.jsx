@@ -110,6 +110,7 @@ text-align: center;
 const Profile = (props) => {
   // CONTEXT API, RELEVENT STATE ELEMENTS
   const [{ userInfo , petInfo }, dispatch] = useStateValue();
+  console.log(userInfo);
   return (
     <OuterDiv>
       <HumanInfo>
@@ -119,12 +120,12 @@ const Profile = (props) => {
           <HumanTextDesc>
             <LesserText>{userInfo.email}</LesserText>
             <StyledForm  >
-              <StyledInputRight type="input" name='userAge' value={props.state.userAge} onChange={props.handleChange} placeholder = {`age`}/>
+              <StyledInputRight type="input" name='userAge' defaultValue={userInfo.age} value={props.state.userAge} onChange={props.handleChange} placeholder = {`age`}/>
               <LesserText> years old</LesserText>
             </StyledForm>
             <StyledForm  >
               <LesserText>I live in </LesserText>
-              <StyledInputLeft type="input" name='userLocation' value={props.state.userLocation} onChange={props.handleChange} placeholder = {`location`}/>  
+              <StyledInputLeft type="input" name='userLocation' defaultValue={userInfo.location} value={props.state.userLocation} onChange={props.handleChange} placeholder = {`location`}/>  
             </StyledForm>
           </HumanTextDesc>
         </CreatureTextArea>
