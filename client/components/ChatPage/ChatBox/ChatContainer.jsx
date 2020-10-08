@@ -9,7 +9,6 @@ import formatMessage from '../../../../utils/messages';
 
 const ChatContainerStyle = styled.div`
 	display: flex;
-
 	min-height: 100%;
 	min-width: 75%;
 `;
@@ -19,13 +18,11 @@ const ChatContainerLeftStyle = styled.div`
 `;
 const ChatContainerRightStyle = styled.div`
 	min-width: 40%;
+	border: 1px solid blue;
 `;
-
-const socket = io.connect('http://localhost:3000');
 
 export function ChatContainer({ selectedPartner }) {
 	console.log('selectedPartner: ', selectedPartner);
-	const [userName, setUsername] = useState('');
 	const [messages, setMessages] = useState([]);
 	const [componentMessages, setComponentMessages] = useState([]);
 
@@ -46,13 +43,11 @@ export function ChatContainer({ selectedPartner }) {
 		// document.querySelector('.chat-messages').appendChild(div);
 	}
 
-	// function submitMessage(e) {
-
-	// }
-
 	useEffect(() => {
 		const chatForm = document.getElementById('chat-form');
 		const chatMessages = document.querySelector('.chat-box');
+
+		const socket = io.connect('http://localhost:3000');
 
 		// Message from server
 

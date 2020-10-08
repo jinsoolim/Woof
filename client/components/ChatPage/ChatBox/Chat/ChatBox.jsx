@@ -2,11 +2,13 @@ import React, { useEffect } from 'react';
 import styled from 'styled-components';
 
 export const ChatBoxStyle = styled.div`
-	border: 1px solid purple;
-	background-color: green;
+	border: 1px solid #5ac4ff;
+	background-color: #fff;
 	min-height: 60%;
 	max-height: 60%;
 	overflow: auto;
+	margin: 1rem;
+	border-radius: 5px;
 `;
 
 export function ChatBox({ chat }) {

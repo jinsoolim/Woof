@@ -8,14 +8,14 @@
   --orange: #fca652;
   --red: #ac4b1c;
 
-  //our colors 
+  //our colors
   --primaryBlue: #5AC4FF;
   --secondaryBlue: #F3F8FF;
   --black: #222;
   --white: #fff;
   --darkGray: #4A4A4A;
   --lightGray: #575757;
-} 
+}
 */
 
 * {
@@ -38,8 +38,26 @@ body {
 	width: 100%;
 }
 
+#msg {
+  height: 2rem;
+  width: 15rem;
+  border-radius: 5px;
+  border: 1px solid black;
+}
+
+.btn {
+  background-color: #5AC4FF;
+  color: #fff;
+  height: 2rem;
+  width: 4rem;
+  border-radius: 5px;
+  border: 1px solid #2cb4fd;
+  margin-left: 1rem;
+  box-shadow: 1px 1px 1px #5AC4FF;
+}
+
 /* OLD SITE STYLING */
-/* 
+/*
 * {
   box-sizing: border-box;
   margin: 0;
@@ -144,7 +162,7 @@ li {
   flex-direction: row;
   justify-content: space-between;
   margin-bottom: 10px;
-  /* align-items: flex-start; 
+  /* align-items: flex-start;
 }
 .title-date h3 {
   align-self: center;
