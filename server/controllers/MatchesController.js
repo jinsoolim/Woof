@@ -1,22 +1,39 @@
-const { User } = require('../models/UserModels');
+const User = require('../models/UserModels');
 const { Activities } = require('../models/ActivitiesModels');
 
 const matchesController = {};
 
-// FINDING AN ACTIVITIES MATCH FOR THE USER BASED ON USER ID. 
+// FINDING AN ACTIVITIES MATCH FOR THE USER BASED ON USER ID.
 
-matchesController.findMatchingUsers = async (req, res, next) => {
+// matchesController.findMatchingUsers = async (req, res, next) => {
+//   console.log(`Requesting for user data`)
+//   const { userID } = req.params;
+
+//   try {
+//     const queryResult = await User.find(({_id: userID}))
+//     console.log(queryResult)
+//     res.locals.user = queryResult
+//   } catch (err) {
+//     console.log(err)
+//   }
+//   return next()
+// }
+
+matchesController.findMatchingUsers = (req, res, next) => {
   console.log(`Requesting for user data`)
-  const { userID } = req.params;
-
-  try {
-    const queryResult = await User.find(({_id: userID}))
-    console.log(queryResult)
-    res.locals.user = queryResult
-  } catch (err) {
-    console.log(err)
-  }
-  return next()
+  const { userID } = req.body;
+  console.log(req.body);
+  User.find([{"_id": userID}], (err, result) => {
+    console.log("USER FIND QUERY RESULT: ", result)
+    if (err) {
+      return next({
+        log: 'Error in starWarsController.getSpecies. Check messages for details',
+        message: {error: err}
+      });
+    }
+    res.locals.user = result;
+    return next();
+  })
 }
 
 module.exports = matchesController;

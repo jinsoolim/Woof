@@ -83,11 +83,11 @@ userController.deleteUserData = async (req, res, next) => {
 userController.createUser = async (req, res, next) => {
   const { name, email } = req.body;
   const picURL = req.body.picture.data.url;
-  
+
   // check if user already exists
   const doesUserExist = await User.find({ email });
 
-  // only create new document if user does not exist  
+  // only create new document if user does not exist
   if (doesUserExist.length === 0) {
     console.log('============> user does not exist');
     const userData = {
@@ -108,13 +108,13 @@ userController.createUser = async (req, res, next) => {
   } else {
     res.locals.data = doesUserExist;
     next();
-  }   
+  }
 }
 
-const fetchUserData = async (userData) => {
-  const result = await User.find(userData);
-  return result; 
-}
+// const fetchUserData = async (userData) => {
+//   const result = await User.find(userData);
+//   return result;
+// }
 
 
 
