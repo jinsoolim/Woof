@@ -24,7 +24,6 @@ const ChatContainerRightStyle = styled.div`
 	border: 1px solid blue;
 	`;
 
-	const socket = io.connect('http://localhost:3000');
 
 	export function ChatContainer({ selectedPartner }) {
 		console.log('selectedPartner: ', selectedPartner);
@@ -49,12 +48,13 @@ const ChatContainerRightStyle = styled.div`
 
 		// function submitMessage(e) {
 
-		// }
+			// }
 
-		useEffect(() => {
+	useEffect(() => {
 		const chatForm = document.getElementById('chat-form');
 		const chatMessages = document.querySelector('.chat-box');
 
+		const socket = io.connect('http://localhost:3000');
 
 		// Message from server
 
