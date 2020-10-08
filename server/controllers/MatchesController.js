@@ -1,40 +1,61 @@
 const User = require('../models/UserModels');
-const { Activities } = require('../models/ActivitiesModels');
+const Activities  = require('../models/ActivitiesModels');
 
 const matchesController = {};
 
-// FINDING AN ACTIVITIES MATCH FOR THE USER BASED ON USER ID.
+// FINDING AN ACTIVITIES MATCH FOR THE USER BASED ON USER ID. 
 
-// matchesController.findMatchingUsers = async (req, res, next) => {
-//   console.log(`Requesting for user data`)
-//   const { userID } = req.params;
+matchesController.userActivities = (req, res, next) => {
+  console.log(`Requesting for user data`);
+  const { userID } = req.body;
+  User.findById(userID, (err, user) => {
+    if (err) {
+      return next({ err });
+    }
+    const activities = user.preferred_activities;
+    // Getting an array of the user's activities
+    const activitiesArray = activities.map((activity) => {
+      return activity.activity;
+    });
+    res.locals.activities = activitiesArray;
+    // console.log(res.locals.activities)
+    console.log(res.locals.activities);
+    next();
+  });
+};
 
-//   try {
-//     const queryResult = await User.find(({_id: userID}))
-//     console.log(queryResult)
-//     res.locals.user = queryResult
-//   } catch (err) {
-//     console.log(err)
-//   }
-//   return next()
+matchesController.findOtherUsers = (req, res, next) => {
+  console.log(`Requesting for activities array`);
+  const { activities } = res.locals;
+  // console.log(activities)
+
+  // const matchesArray = []
+  Activities.find({ name: {$in: activities} })
+            .then(users => {
+              res.locals.matches = users[0].users
+              console.log(res.locals.matches)
+              next();
+            }).catch(err => {
+              console.log(err)
+            })
+}
+ 
+// matchesController.returnMatches = (req, res, next) => {
+//   console.log(`Returning Matches`);
+//   const { matchesArray } = res.locals;
+//   console.log(matchesArray)
+
 // }
 
-matchesController.findMatchingUsers = (req, res, next) => {
-  console.log(`Requesting for user data`)
-  const { userID } = req.body;
-  console.log(req.body);
-  User.find([{"_id": userID}], (err, result) => {
-    console.log("USER FIND QUERY RESULT: ", result)
-    if (err) {
-      return next({
-        log: 'Error in starWarsController.getSpecies. Check messages for details',
-        message: {error: err}
-      });
-    }
-    res.locals.user = result;
-    return next();
-  })
-}
+
+// {
+//   matches: {
+//     coffee: [{user 1}, {user 2}],
+    
+//   }
+
+// }
+
 
 module.exports = matchesController;
 
