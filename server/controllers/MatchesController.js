@@ -6,9 +6,10 @@ const matchesController = {};
 // FINDING AN ACTIVITIES MATCH FOR THE USER BASED ON USER ID. 
 
 matchesController.userActivities = (req, res, next) => {
-  console.log(`Requesting for user data`);
-  const { userID } = req.body;
-  User.findById(userID, (err, user) => {
+  // console.log(`Requesting for user data`);
+  const { data } = res.locals;
+  // console.log('data ---> ', res.locals)
+  User.findById(data._id, (err, user) => {
     if (err) {
       return next({ err });
     }
@@ -19,13 +20,13 @@ matchesController.userActivities = (req, res, next) => {
     });
     res.locals.activities = activitiesArray;
     // console.log(res.locals.activities)
-    console.log(res.locals.activities);
+    // console.log(res.locals.activities);
     next();
   });
 };
 
 matchesController.getUniqueIds = (req, res, next) => {
-  console.log(`Requesting for activities array`);
+  // console.log(`Requesting for activities array`);
   const { activities } = res.locals;
 
   // Changing all activities to lowercase
@@ -35,7 +36,7 @@ matchesController.getUniqueIds = (req, res, next) => {
   Activities.find({ name: { $in: activitiesUpdate } })
     .then((users) => {
       // Loop through array of activities to extract the ids. Expect to receive an array of IDs that are not duplicates
-      console.log('users -----> ', users);
+      // console.log('users -----> ', users);
       const arrayOfIds = [];
       users.forEach((activity) => {
         arrayOfIds.push(activity.users);
@@ -61,7 +62,7 @@ matchesController.getUniqueIds = (req, res, next) => {
 
 //Return list of users with this array
 matchesController.returnMatches = (req, res, next) => {
-  console.log(`Returning Matches`);
+  // console.log(`Returning Matches`);
   const { uniqueIds } = res.locals;
   // console.log(res.locals.uniqueIds);
   // console.log(typeof res.locals.uniqueIds[0].toString());
