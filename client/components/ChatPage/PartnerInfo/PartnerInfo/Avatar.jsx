@@ -14,8 +14,8 @@ const AvatarStyles = styled.div`
 `;
 
 const AvatarImgStyles = styled.img`
-	max-width: 250px;
-	max-height: 150px;
+	max-width: 50px;
+	max-height: 50px;
 
 	&:hover {
 		transform: scale(1.4) rotate(0.1deg);

@@ -39,8 +39,8 @@ const App = () => {
 			location: '',
 			age: '',
 			avatarUrl: '',
-      activities: {},
-      email: '',
+			activities: {},
+			email: '',
 		},
 		petInfo: {
 			name: '',
@@ -62,8 +62,7 @@ const App = () => {
 				age: '7',
 				breed: 'Labrador',
 				size: 'Medium',
-				avatarUrl:
-					'https://www.facebook.com/photo/?fbid=1820209034683490&set=picfp.100000832322052',
+				avatarUrl: '',
 			},
 		},
 		chatItems: {},
@@ -78,30 +77,30 @@ const App = () => {
 
 		switch (action.type) {
 			case 'clickLogin':
-        userInfo = Object.assign({}, state.userInfo);
-        petInfo = Object.assign({}, state.petInfo);
+				userInfo = Object.assign({}, state.userInfo);
+				petInfo = Object.assign({}, state.petInfo);
 				userInfo._id = action.id;
 				userInfo.fullName = action.full_name;
 				userInfo.firstName = action.first_name;
 				userInfo.email = action.email;
-        userInfo.avatarUrl = action.profile_img;
-        userInfo.age = action.user_age;
-        userInfo.location = action.location;
-        petInfo.name = action.dog_name;
-        petInfo.avatarUrl = action.dog_image;
-        petInfo.age = action.dog_age;
-        petInfo.size = action.dog_size;
-        petInfo.breed = action.dog_breed;
-        userInfo.activities = {};
-        action.preferred_activities.forEach(activity => {
-          userInfo.activities[activity.activity] = activity.description
-        });
-        // console.log('userInfo:',userInfo);
-        // console.log('petInfo:',petInfo);
+				userInfo.avatarUrl = action.profile_img;
+				userInfo.age = action.user_age;
+				userInfo.location = action.location;
+				petInfo.name = action.dog_name;
+				petInfo.avatarUrl = action.dog_image;
+				petInfo.age = action.dog_age;
+				petInfo.size = action.dog_size;
+				petInfo.breed = action.dog_breed;
+				userInfo.activities = {};
+				action.preferred_activities.forEach((activity) => {
+					userInfo.activities[activity.activity] = activity.description;
+				});
+				// console.log('userInfo:',userInfo);
+				// console.log('petInfo:',petInfo);
 				return {
 					...state,
-          userInfo,
-          petInfo,
+					userInfo,
+					petInfo,
 					loggedIn: true,
 				};
 
@@ -113,31 +112,31 @@ const App = () => {
 					userInfo,
 				};
 
-        case 'removeActivity': 
-        userInfo = Object.assign({}, state.userInfo);
-        delete userInfo.activities[action.activity];
-        return {
-          ...state,
-          userInfo,
-        };
+			case 'removeActivity':
+				userInfo = Object.assign({}, state.userInfo);
+				delete userInfo.activities[action.activity];
+				return {
+					...state,
+					userInfo,
+				};
 
-        case 'saveProfile':
-          userInfo = Object.assign({}, state.userInfo);
-          petInfo = Object.assign({}, state.petInfo);
-          userInfo.location = action.userInfo.location;
-          userInfo.age = action.userInfo.age;
-          userInfo.activities = action.userInfo.activities;
-          petInfo.name = action.petInfo.name;
-          petInfo.age = action.petInfo.age;
-          petInfo.breed = action.petInfo.breed;
-          petInfo.size = action.petInfo.size;
-          petInfo.avatarUrl = action.petInfo.avatarUrl;
-          console.log(userInfo, petInfo);
-          return {
-            ...state,
-            userInfo,
-            petInfo,
-          };
+			case 'saveProfile':
+				userInfo = Object.assign({}, state.userInfo);
+				petInfo = Object.assign({}, state.petInfo);
+				userInfo.location = action.userInfo.location;
+				userInfo.age = action.userInfo.age;
+				userInfo.activities = action.userInfo.activities;
+				petInfo.name = action.petInfo.name;
+				petInfo.age = action.petInfo.age;
+				petInfo.breed = action.petInfo.breed;
+				petInfo.size = action.petInfo.size;
+				petInfo.avatarUrl = action.petInfo.avatarUrl;
+				console.log(userInfo, petInfo);
+				return {
+					...state,
+					userInfo,
+					petInfo,
+				};
 
 			default:
 				return state;
