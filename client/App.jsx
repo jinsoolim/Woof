@@ -66,7 +66,7 @@ const App = () => {
 			},
 		},
 		chatItems: {},
-		matchList: [{ _id: 564345532, firstName: 'Gary', petName: 'Tully' }],
+		matchList: [],
 		mainMatch: false,
 		loggedIn: false,
 	};
@@ -132,9 +132,9 @@ const App = () => {
 				petInfo.size = action.petInfo.size;
         petInfo.avatarUrl = action.petInfo.avatarUrl;
         console.log("save profile");
-
+        
         let matchList = action.matchList;
-        console.log('GOODBYE');
+        console.log('Hello',matchList);
         return {
           ...state,
           matchList,
