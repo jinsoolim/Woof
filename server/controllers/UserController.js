@@ -5,8 +5,6 @@ const userController = {};
 
 userController.getUserData = async (req, res, next) => {
    // get the user id from params
-   console.log('inside get user data');
-   console.log(req.params)
    const { id } = req.params;
    console.log('Send data for user ID:', id);
    // verify that user name is valid
@@ -62,7 +60,6 @@ userController.deleteUserData = async (req, res, next) => {
 };
 
 userController.createUser = async (req, res, next) => {
-  console.log('====>',req.body);
   const { name, email } = req.body;
   const picURL = req.body.picture.data.url;
 

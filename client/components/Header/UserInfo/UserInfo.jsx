@@ -41,7 +41,6 @@ const UserInfo = () => {
 
   // FACEBOOK RESPONSE
   const responseFacebook = response => {
-    console.log('===FB===>', response)
     if (response.accessToken) {
       // send user data to DB
       fetch('/api/login', {
