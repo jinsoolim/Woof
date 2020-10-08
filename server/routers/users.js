@@ -8,17 +8,17 @@ router.post('/login',
   (req, res) => res.status(200).json(res.locals.data)
 );
 
-router.post('/getUserData',
+router.get('/getUserData/:id',
   userController.getUserData,
   (req, res) => res.status(200).json(res.locals.data)
 );
 
-router.post('/deleteUser/:id',
+router.delete('/deleteUser/:id',
   userController.deleteUserData,
   (req, res) => res.status(200).json(res.locals.data)
 );
 
-router.post('/updateUserData/:id', 
+router.put('/updateUserData/:id', 
   userController.updateUserData, 
   (req, res) => res.status(200).json(res.locals.data)
 );

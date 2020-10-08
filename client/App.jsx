@@ -6,12 +6,6 @@ import {
 	Redirect,
 } from 'react-router-dom';
 import styled from 'styled-components';
-// import './styles.css';
-// OLD IMPORTS
-// import Login from "./components/Login.jsx";
-// import Feed from "./components/Feed.jsx";
-// import Signup from "./components/Signup.jsx";
-// import Bucketlist from "./components/Bucketlist.jsx";
 
 import Header from './components/Header/Header.jsx';
 import Login from './components/Login/Login.jsx';
@@ -20,28 +14,6 @@ import { ChatPage } from './components/ChatPage/ChatPage.jsx';
 import { StateProvider, useStateValue } from './StateProvider';
 import styledItems from './styled-items';
 
-// EXAMPLE STYLECOMPONENT
-// Create a Title component that'll render an <h1> tag with some styles
-// const Title = styled.h1`
-//   font-size: 1.5em;
-//   text-align: center;
-//   color: palevioletred;
-// `;
-
-// // Create a Wrapper component that'll render a <section> tag with some styles
-// const Wrapper = styled.section`
-//   padding: 4em;
-//   background: papayawhip;
-// `;
-
-// // Use Title and Wrapper like any other React component – except they're styled!
-// render(
-//   <Wrapper>
-//     <Title>
-//       Hello World!
-//     </Title>
-//   </Wrapper>
-// );
 const RouterDiv = styled.div`
 	width: 85%;
 	background-color: ${styledItems.white};
@@ -63,11 +35,12 @@ const App = () => {
 		userInfo: {
 			_id: 0,
 			fullName: '',
-			firstName: 'Stormi',
-			location: 'Los Angeles, CA',
-			age: '23',
+			firstName: '',
+			location: '',
+			age: '',
 			avatarUrl: '',
-			activities: {},
+      activities: {},
+      email: '',
 		},
 		petInfo: {
 			name: '',
@@ -105,15 +78,30 @@ const App = () => {
 
 		switch (action.type) {
 			case 'clickLogin':
-				userInfo = Object.assign({}, state.userInfo);
+        userInfo = Object.assign({}, state.userInfo);
+        petInfo = Object.assign({}, state.petInfo);
+				userInfo._id = action.id;
 				userInfo.fullName = action.full_name;
 				userInfo.firstName = action.first_name;
 				userInfo.email = action.email;
-				userInfo.avatarUrl = action.profile_img;
-				userInfo._id = action.id;
+        userInfo.avatarUrl = action.profile_img;
+        userInfo.age = action.user_age;
+        userInfo.location = action.location;
+        petInfo.name = action.dog_name;
+        petInfo.avatarUrl = action.dog_image;
+        petInfo.age = action.dog_age;
+        petInfo.size = action.dog_size;
+        petInfo.breed = action.dog_breed;
+        userInfo.activities = {};
+        action.preferred_activities.forEach(activity => {
+          userInfo.activities[activity.activity] = activity.description
+        });
+        // console.log('userInfo:',userInfo);
+        // console.log('petInfo:',petInfo);
 				return {
 					...state,
-					userInfo,
+          userInfo,
+          petInfo,
 					loggedIn: true,
 				};
 
@@ -125,59 +113,31 @@ const App = () => {
 					userInfo,
 				};
 
-			case 'saveProfile':
-				userInfo = Object.assign({}, state.userInfo);
-				petInfo = Object.assign({}, state.petInfo);
-				userInfo.location = action.userInfo.location;
-				userInfo.age = action.userInfo.age;
-				// userInfo.activities = action.userInfo.activities;
-				petInfo.name = action.petInfo.name;
-				petInfo.age = action.petInfo.age;
-				petInfo.breed = action.petInfo.breed;
-				petInfo.size = action.petInfo.size;
-				petInfo.avatarUrl = action.petInfo.avatarUrl;
-				console.log(userInfo);
-				console.log(petInfo);
-				return {
-					...state,
-					userInfo,
-					petInfo,
-				};
-			// example component later in the process...
-			// import { useStateValue } from './state';
-			// const ButtonComponent = () => {
-			//   const [{ userName }, dispatch] = useStateValue();
-			//   return (
-			//     <Button
-			//       onClick={() => dispatch({
-			//         type: 'clickLogin',
-			//         userName: textBox.value
-			//       })}>
-			//       Login!
-			//     </Button>
-			//   );
-			// }
+        case 'removeActivity': 
+        userInfo = Object.assign({}, state.userInfo);
+        delete userInfo.activities[action.activity];
+        return {
+          ...state,
+          userInfo,
+        };
 
-			// USING STATE IN A CLASS COMPONENT
-			// import React, { Component } from 'react';
-			// import { StateContext } from './state';
-			// class ThemedButton extends Component {
-			//   static contextType = StateContext;
-			//   render() {
-			//     const [{ theme }, dispatch] = this.context;
-			//     return (
-			//       <Button
-			//         primaryColor={theme.primary}
-			//         onClick={() => dispatch({
-			//           type: 'changeTheme',
-			//           newTheme: { primary: 'blue'}
-			//         })}
-			//       >
-			//         Make me blue!
-			//       </Button>
-			//     );
-			//   }
-			// }
+        case 'saveProfile':
+          userInfo = Object.assign({}, state.userInfo);
+          petInfo = Object.assign({}, state.petInfo);
+          userInfo.location = action.userInfo.location;
+          userInfo.age = action.userInfo.age;
+          userInfo.activities = action.userInfo.activities;
+          petInfo.name = action.petInfo.name;
+          petInfo.age = action.petInfo.age;
+          petInfo.breed = action.petInfo.breed;
+          petInfo.size = action.petInfo.size;
+          petInfo.avatarUrl = action.petInfo.avatarUrl;
+          console.log(userInfo, petInfo);
+          return {
+            ...state,
+            userInfo,
+            petInfo,
+          };
 
 			default:
 				return state;

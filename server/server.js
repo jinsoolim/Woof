@@ -1,12 +1,12 @@
 const path = require('path');
 const express = require('express');
 const socketio = require('socket.io');
-const formatMessage = require('../utils/messages');
+const bodyParser = require("body-parser");
 const cookieParser = require('cookie-parser');
 const mongoose = require('mongoose');
 const usersRouter = require("./routers/users");
 const mainRouter = require('./routers/main.js')
-const bodyParser = require("body-parser");
+const formatMessage = require('../utils/messages');
 
 // SETTING UP SERVER
 const app = express();
@@ -46,9 +46,6 @@ app.use('/', (req, res) => {
   res.sendFile(path.join(__dirname, '../index.html'));
 });
 
-
-console.log(__dirname);
-
 const botName = 'WoofBot';
 
 // GLOBAL ERROR HANDLER
@@ -76,9 +73,13 @@ io.on('connection', socket => {
   // });
 
   // Listen for chat message
-  socket.on('chatMessage', msg => {
-    io.emit('message', formatMessage('USER', msg));
+  socket.on('userMessage', ({ username, text}) => {
+    io.emit('friendMessage', formatMessage(username, text));
   })
+
+  socket.on('friendMessage', ({ username, text }) => {
+    io.emit('userMessage', formatMessage(username, text))
+  });
 
   // Runs when client disconnects
   socket.on('disconnect', () => {

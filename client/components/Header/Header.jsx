@@ -17,7 +17,6 @@ const HeaderBG = styled.div`
 
 const Logo = styled.div`
 	font-size: 2em;
-	letter-spacing: 5px;
 	color: ${styledItems.darkGray};
 	font-weight: 100;
 `;
