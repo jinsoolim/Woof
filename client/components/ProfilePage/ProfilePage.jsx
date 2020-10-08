@@ -74,6 +74,7 @@ class ProfilePage extends Component {
 
   componentDidMount() {
     const [{ userInfo, petInfo }, dispatch] = this.context;
+    console.log("LOG TEST",userInfo);
     this.setState({
       userLocation: userInfo.location,
       userAge: userInfo.age,
@@ -151,9 +152,9 @@ class ProfilePage extends Component {
       Object.entries(userInfo.activities).forEach(([activity, description]) => {
         mongoObj.preferred_activities.push({'activity': activity, 'description': description })
       });
-      console.log(mongoObj);
+      // console.log(mongoObj);
      
-      console.log('===========>', userInfo._id)
+      // console.log('===========>', userInfo._id)
       // send user data & pet data to DB
       fetch(`/api/updateUserData/${userInfo._id}`, {
         method: 'PUT',

@@ -1,5 +1,5 @@
 import React from "react";
-import {Link} from "react-router-dom";
+import {Link, Redirect} from "react-router-dom";
 import styled from 'styled-components';
 import { useStateValue , StateContext } from '../../../StateProvider';
 import styledItems from '../../../styled-items';
@@ -12,6 +12,9 @@ const Register = styled.div`
 
 const OuterDiv = styled.div`
   margin-right: 100px;
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 const StyledImg = styled.img`
@@ -76,8 +79,13 @@ const UserInfo = () => {
     }
   }
 
+  const modifyDirection = () => {
+    redirection = <Redirect to="/profilepage" />;
+  }
+
   // CONDITIONAL RENDERING OF CORNER DIV
   let cornerDiv;
+  let redirection;
   if(userInfo.fullName == '') {
     cornerDiv = 
      <FacebookLogin 
@@ -87,15 +95,18 @@ const UserInfo = () => {
         render={renderProps => (<Register onClick={renderProps.onClick}>login with facebook</Register>)}
         />;
   } else if(petInfo.name == '') {
-    cornerDiv = <LineDiv><StyledImg src={userInfo.avatarUrl} /><Register>{userInfo.firstName}</Register></LineDiv>;
+    cornerDiv = <Link to="/profilepage" ><LineDiv><StyledImg src={userInfo.avatarUrl} /><Register>{userInfo.firstName}</Register></LineDiv></Link>;
+    redirection = <Redirect to="/profilepage" />;
   } else {
     //console.log(JSON.stringify(userInfo));
-    cornerDiv = <OverallDiv><LineDiv><StyledImg src={userInfo.avatarUrl} /><Register>{userInfo.firstName}</Register></LineDiv><LineDiv><StyledImg src={petInfo.avatarUrl} /><Register>{petInfo.name}</Register></LineDiv></OverallDiv>;
+    cornerDiv = <Link to="/profilepage" ><OverallDiv><LineDiv><StyledImg src={userInfo.avatarUrl} /><Register>{userInfo.firstName}</Register></LineDiv><LineDiv><StyledImg src={petInfo.avatarUrl} /><Register>{petInfo.name}</Register></LineDiv></OverallDiv></Link>;
+    redirection = <Redirect to="/profilepage" />;
   }
   
   return (
     <OuterDiv>
-       <Link to="/profilepage">{cornerDiv}</Link>
+       {cornerDiv}
+       {redirection}
     </OuterDiv>
   );
 }
