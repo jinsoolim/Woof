@@ -27,7 +27,6 @@ const ChatContainerRightStyle = styled.div`
 
 	export function ChatContainer({ selectedPartner }) {
 		console.log('selectedPartner: ', selectedPartner);
-		const [userName, setUsername] = useState('');
 		const [messages, setMessages] = useState([]);
 		const [componentMessages, setComponentMessages] = useState([]);
 

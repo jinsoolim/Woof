@@ -1,9 +1,11 @@
-const User = require('../models/UserModels');
+const  User = require('../models/UserModels');
 
 const userController = {};
 
 userController.getUserData = async (req, res, next) => {
    // get the user id from params
+   console.log('inside get user data');
+   console.log(req.params)
    const { id } = req.params;
    console.log('Send data for user ID:', id);
    // verify that user name is valid
@@ -85,6 +87,7 @@ userController.createUser = async (req, res, next) => {
   const picURL = req.body.picture.data.url;
 
   // check if user already exists
+  console.log('==========>', email);
   const doesUserExist = await User.find({ email });
 
   // only create new document if user does not exist
@@ -111,10 +114,10 @@ userController.createUser = async (req, res, next) => {
   }
 }
 
-// const fetchUserData = async (userData) => {
-//   const result = await User.find(userData);
-//   return result;
-// }
+const fetchUserData = async (userData) => {
+  const result = await User.find(userData);
+  return result;
+}
 
 
 
