@@ -96,7 +96,7 @@ class ProfilePage extends Component {
 
   static contextType = StateContext;
   render() {
-    const [{ userInfo, petInfo }, dispatch] = this.context;
+    const [{ userInfo, petInfo}, dispatch] = this.context;
 
     const saveProfile = () => {
       const stockActivities = [
@@ -129,11 +129,11 @@ class ProfilePage extends Component {
       // console.log(stockActivities);
       // console.log(userInfo);
 
-      dispatch({ 
-        type: 'saveProfile',
-        userInfo,
-        petInfo,
-      });
+      // dispatch({ 
+      //   type: 'saveProfile',
+      //   userInfo,
+      //   petInfo,
+      // });
 
       // convert state to mongoDB format
       const mongoObj = {};
@@ -165,7 +165,40 @@ class ProfilePage extends Component {
       })
       .then((res) => res.json())
       .then((data) => {
+        const currentUserId = userInfo._id;
         console.log('response from server', data);
+        const matchList = [];
+        data.forEach(match => {
+          if(match._id != currentUserId) {
+            const userObject = {
+              _id: match._id,
+              firstName: match.first_name || '',
+              fullName: match.full_name || '',
+              location: match.location || '',
+              age: match.user_age || '',
+              avatarUrl: match.profile_img || '',
+              activities: {},
+              petInfo: {
+                name: match.dog_name || '',
+                age: match.dog_age || '',
+                breed: match.dog_breed || '',
+                size: match.dog_size || '',
+                avatarUrl: match.dog_image || '',
+              },
+            }
+            match.preferred_activities.forEach(activity => {
+              userObject.activities[activity.activity] = activity.description;
+            });
+            matchList.push(userObject);
+          };
+        });
+        console.log('HELLO');
+        dispatch({ 
+          type: 'updateMatches',
+          matchList,
+          userInfo,
+          petInfo,
+        });
       })
       .catch((err) => console.log('POST: PROFILE INFO to DB ERROR: ', err));      
     }

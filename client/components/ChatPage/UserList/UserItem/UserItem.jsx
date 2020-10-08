@@ -54,7 +54,9 @@ const PartnersNameStyle = styled.h4`
 `;
 
 export function UserItem({ user, setSelectedPartner, selectedPartner }) {
-	const { firstName, petInfo, avatarUrl } = user;
+  // const {firstName, petInfo, avatarUrl } = user;
+  const {firstName } = user;
+  console.log(JSON.stringify(user));
 
 	//check to see if user is the selectedPartner;
 	let isCurrentMatchedPartner;
@@ -66,13 +68,14 @@ export function UserItem({ user, setSelectedPartner, selectedPartner }) {
 		<UserItemStyle isCurrentMatchedPartner={isCurrentMatchedPartner}>
 			<LeftAvatarStyle>
 				<PartnersNameStyle onClick={() => setSelectedPartner(user)}>
-					{firstName} & {petInfo.name}
+					{firstName}
+					{/* {firstName} & {petInfo.name} */}
 				</PartnersNameStyle>
 			</LeftAvatarStyle>
 
 			<RightAvatarStyle>
-				<AvatarStyle src={avatarUrl} />
-				<AvatarStyle src={petInfo.avatarUrl} />
+				{/* <AvatarStyle src={avatarUrl} />
+				<AvatarStyle src={petInfo.avatarUrl} /> */}
 			</RightAvatarStyle>
 		</UserItemStyle>
 	);
