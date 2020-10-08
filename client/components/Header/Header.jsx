@@ -16,13 +16,13 @@ const HeaderBG = styled.div`
 `;
 
 const Logo = styled.div`
-  font-size: 2em; 
+  font-size: 2em;
   color: ${styledItems.darkGray};
   font-weight: 100;
 `;
 
 const BlackText = styled.span`
-  color: ${styledItems.black}; 
+  color: ${styledItems.black};
   font-weight: 800;
 `
 

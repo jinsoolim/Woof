@@ -1,8 +1,6 @@
 import React from "react";
 import {Link} from "react-router-dom";
-// import {useHistory} from "react-router";
 import styled from 'styled-components';
-// CONTEXT API IMPORT
 import { useStateValue , StateContext } from '../../../StateProvider';
 import styledItems from '../../../styled-items';
 import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props'
@@ -12,10 +10,27 @@ const Register = styled.div`
   font-size: 1.4em;
 `;
 
-const DisplayInfo = styled.div`
-  color: ${styledItems.darkGray};
-  font-size: 1.4em;
+const OuterDiv = styled.div`
+  margin-right: 100px;
 `;
+
+const StyledImg = styled.img`
+  width: 30px;
+  height: 30px;
+  border-radius: 15px;
+  margin: 10px;
+`;
+
+const OverallDiv = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+const LineDiv = styled.div`
+  display: flex;
+  align-items: center;  
+`;
+
 
 const UserInfo = () => {
   // CONTEXT API, RELEVENT STATE ELEMENTS
@@ -64,16 +79,16 @@ const UserInfo = () => {
         render={renderProps => (<Register onClick={renderProps.onClick}>login with facebook</Register>)}
         />;
   } else if(petInfo.name == '') {
-    cornerDiv = <Register>{userInfo.firstName}</Register>;
+    cornerDiv = <LineDiv><StyledImg src={userInfo.avatarUrl} /><Register>{userInfo.firstName}</Register></LineDiv>;
   } else {
     //console.log(JSON.stringify(userInfo));
-    cornerDiv = <div><Register>{userInfo.firstName}</Register><Register>{petInfo.name}</Register></div>;
+    cornerDiv = <OverallDiv><LineDiv><StyledImg src={userInfo.avatarUrl} /><Register>{userInfo.firstName}</Register></LineDiv><LineDiv><StyledImg src={petInfo.avatarUrl} /><Register>{petInfo.name}</Register></LineDiv></OverallDiv>;
   }
   
   return (
-    <div>
+    <OuterDiv>
        <Link to="/profilepage">{cornerDiv}</Link>
-    </div>
+    </OuterDiv>
   );
 }
 
