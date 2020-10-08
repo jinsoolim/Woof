@@ -74,6 +74,7 @@ class ProfilePage extends Component {
 
   componentDidMount() {
     const [{ userInfo, petInfo }, dispatch] = this.context;
+    console.log("LOG TEST",userInfo);
     this.setState({
       userLocation: userInfo.location,
       userAge: userInfo.age,
@@ -109,34 +110,64 @@ class ProfilePage extends Component {
         'Beach',
       ];
 
-      const userInfo = {
-        location: this.state.userLocation,
-        age: this.state.userAge,
-        activities: {},
-      };
+      userInfo.location = this.state.userLocation;
+      userInfo.age = this.state.userAge;
+      userInfo.activities = {};
 
-      const petInfo = {
-        name: this.state.petName,
-        age: this.state.petAge,
-        breed: this.state.petBreed,
-        size: this.state.petSize,
-        avatarUrl: this.state.petAvatar,
-      }
+      petInfo.name = this.state.petName,
+      petInfo.age = this.state.petAge,
+      petInfo.breed = this.state.petBreed,
+      petInfo.size = this.state.petSize,
+      petInfo.avatarUrl = this.state.petAvatar,
 
       stockActivities.forEach(activity => {
         if(this.state[activity] != '') {
           userInfo.activities[activity] = this.state[activity];
         }
       })
-      console.log(this.state);
-      console.log(stockActivities);
-      console.log(userInfo);
+      // console.log(this.state);
+      // console.log(stockActivities);
+      // console.log(userInfo);
 
       dispatch({ 
         type: 'saveProfile',
         userInfo,
         petInfo,
       });
+
+      // convert state to mongoDB format
+      const mongoObj = {};
+      mongoObj.first_name = userInfo.firstName;
+      mongoObj.full_name = userInfo.fullName;
+      mongoObj.email = userInfo.email;
+      mongoObj.profile_img = userInfo.avatarUrl;
+      mongoObj.user_age = userInfo.age;
+      mongoObj.location = userInfo.location;
+      mongoObj.dog_name = petInfo.name;
+      mongoObj.dog_image = petInfo.avatarUrl;
+      mongoObj.dog_age = petInfo.age;
+      mongoObj.dog_size = petInfo.size;
+      mongoObj.dog_breed = petInfo.breed;
+      mongoObj.preferred_activities = [];
+      Object.entries(userInfo.activities).forEach(([activity, description]) => {
+        mongoObj.preferred_activities.push({'activity': activity, 'description': description })
+      });
+      // console.log(mongoObj);
+     
+      // console.log('===========>', userInfo._id)
+      // send user data & pet data to DB
+      fetch(`/api/updateUserData/${userInfo._id}`, {
+        method: 'PUT',
+        headers: {
+          "Content-Type": "Application/JSON",
+        },
+        body: JSON.stringify(mongoObj)
+      })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log('response from server', data);
+      })
+      .catch((err) => console.log('POST: PROFILE INFO to DB ERROR: ', err));      
     }
 
     return (

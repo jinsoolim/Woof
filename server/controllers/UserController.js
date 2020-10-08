@@ -25,34 +25,9 @@ userController.updateUserData = async (req, res, next) => {
   //const userData = req.body;
   // TODO: verify that user name is valid
   const { id } = req.params;
+  console.log('req body',req.body);
   console.log('updating id:', id);
-  const userData = {
-    "full_name": "Diego Vazquez",
-    "first_name": "Diego",
-    "email": "itsdiego@aol.com",
-    "profile_image": "https://ca.slack-edge.com/T016VMCKF7Y-U018TU7L5FE-d7b3b26a3732-512",
-    "user_age": '99',
-    "location": "Galicia",
-    "dog_name": "Estrella",
-    "dog_image": "https://vetstreet.brightspotcdn.com/dims4/default/bf899ab/2147483647/crop/650x463%2B0%2B0/resize/590x420/quality/90/?url=https%3A%2F%2Fvetstreet-brightspot.s3.amazonaws.com%2Fc3%2Fd7%2F9d43eceb4bf7a27bc8ba92facc07%2Fgolden-retriever-ap-hudfmx.jpg",
-    "dog_age": '7',
-    "dog_size": "Large",
-    "dog_breed": "Golden Retriever",
-    "preferred_activities": [{
-        "activity": "coffee",
-        "description": "coffee is the best thing ever!!!!!"
-    }, {
-        "activity": "beach",
-        "description": "i love the beach!!!!!"
-    }],
-    "timestamps": {
-        "$timestamp": {
-            "t": 1602086704,
-            "i": 1
-        }
-    }
-  }
-
+  const userData = req.body;
   if (!id) {
     return next({
       log: 'UserController.updateUserData ERROR: userName is undefined',
