@@ -7,18 +7,16 @@ import { ChatBox } from './Chat/ChatBox.jsx';
 
 const ChatContainerStyle = styled.div`
 	display: flex;
-	border: 1px solid purple;
+
 	min-height: 100%;
-	min-width: 70%;
+	min-width: 75%;
 `;
 const ChatContainerLeftStyle = styled.div`
 	max-width: 60%;
 	min-width: 60%;
-	border: 1px solid blue;
 `;
 const ChatContainerRightStyle = styled.div`
 	min-width: 40%;
-	border: 1px solid blue;
 `;
 
 export function ChatContainer({ selectedPartner }) {
