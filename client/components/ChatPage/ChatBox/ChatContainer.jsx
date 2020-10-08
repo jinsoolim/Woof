@@ -9,7 +9,6 @@ import formatMessage from '../../../../utils/messages';
 
 const ChatContainerStyle = styled.div`
 	display: flex;
-
 	min-height: 100%;
 	min-width: 75%;
 `;
@@ -20,8 +19,7 @@ const ChatContainerLeftStyle = styled.div`
 const ChatContainerRightStyle = styled.div`
 	min-width: 40%;
 	border: 1px solid blue;
-	`;
-
+`;
 
 export function ChatContainer({ selectedPartner }) {
 	console.log('selectedPartner: ', selectedPartner);
@@ -33,8 +31,10 @@ export function ChatContainer({ selectedPartner }) {
 		messages.push(message);
 		setMessages(messages);
 		let messageList = [];
-		for (let i = 0; i < messages.length; i+=1) {
-			messageList.push(<Message messageInfo={messages[i]} key={`message${i}`} />)
+		for (let i = 0; i < messages.length; i += 1) {
+			messageList.push(
+				<Message messageInfo={messages[i]} key={`message${i}`} />
+			);
 		}
 		setComponentMessages(messageList);
 		// const div = document.createElement('div');
