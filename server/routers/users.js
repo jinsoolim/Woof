@@ -18,7 +18,7 @@ router.delete('/deleteUser/:id',
   (req, res) => res.status(200).json(res.locals.data)
 );
 
-router.post('/updateUserData/:id', 
+router.put('/updateUserData/:id', 
   userController.updateUserData, 
   (req, res) => res.status(200).json(res.locals.data)
 );
