@@ -4,7 +4,6 @@ import styled from 'styled-components';
 const PartnerActivitiesListStyles = styled.div`
 	display: flex;
 	flex-direction: column;
-	justify-content: center;
 	align-items: center;
 	width: 70%;
 	height: 150px;
@@ -12,6 +11,10 @@ const PartnerActivitiesListStyles = styled.div`
 	overflow: scroll;
 	margin-top: 10px;
 	overflow: auto;
+
+	h3 {
+		margin-top: 10px;
+	}
 
 	div {
 		display: flex;
