@@ -1,40 +1,81 @@
 const User = require('../models/UserModels');
-const { Activities } = require('../models/ActivitiesModels');
+const Activities  = require('../models/ActivitiesModels');
 
 const matchesController = {};
 
-// FINDING AN ACTIVITIES MATCH FOR THE USER BASED ON USER ID.
+// FINDING AN ACTIVITIES MATCH FOR THE USER BASED ON USER ID. 
 
-// matchesController.findMatchingUsers = async (req, res, next) => {
-//   console.log(`Requesting for user data`)
-//   const { userID } = req.params;
-
-//   try {
-//     const queryResult = await User.find(({_id: userID}))
-//     console.log(queryResult)
-//     res.locals.user = queryResult
-//   } catch (err) {
-//     console.log(err)
-//   }
-//   return next()
-// }
-
-matchesController.findMatchingUsers = (req, res, next) => {
-  console.log(`Requesting for user data`)
+matchesController.userActivities = (req, res, next) => {
+  console.log(`Requesting for user data`);
   const { userID } = req.body;
-  console.log(req.body);
-  User.find([{"_id": userID}], (err, result) => {
-    console.log("USER FIND QUERY RESULT: ", result)
+  User.findById(userID, (err, user) => {
     if (err) {
-      return next({
-        log: 'Error in starWarsController.getSpecies. Check messages for details',
-        message: {error: err}
-      });
+      return next({ err });
     }
-    res.locals.user = result;
-    return next();
-  })
+    const activities = user.preferred_activities;
+    // Getting an array of the user's activities
+    const activitiesArray = activities.map((activity) => {
+      return activity.activity;
+    });
+    res.locals.activities = activitiesArray;
+    // console.log(res.locals.activities)
+    console.log(res.locals.activities);
+    next();
+  });
+};
+
+matchesController.getUniqueIds = (req, res, next) => {
+  console.log(`Requesting for activities array`);
+  const { activities } = res.locals;
+  // console.log(activities)
+
+  // const matchesArray = []
+  Activities
+      .find({ name: {$in: activities} })
+      .then(users => {
+        // Loop through array of activities to extract the ids. Expect to receive an array of IDs that are not duplicates
+        const arrayOfIds = []
+        users.forEach((activity) => {
+          arrayOfIds.push(activity.users)
+        })
+        // Return a flattened array of IDs with no duplicates. Save result to res.locals
+        // const uniqueIds = new Set(arrayOfIds.flat());
+        res.locals.uniqueIds = arrayOfIds.flat();
+        console.log('uniqueIDs --> ', res.locals.uniqueIds)
+        next();
+      }).catch(err => {
+        console.log(err)
+      })
 }
+
+//Return list of users with this array
+matchesController.returnMatches = (req, res, next) => {
+  console.log(`Returning Matches`);
+  const { uniqueIds } = res.locals;
+  console.log(res.locals.uniqueIds);
+  console.log(typeof res.locals.uniqueIds[0].toString());
+  
+  // const idString = uniqueIds.map((id) => id.toString())
+  // console.log(idString)
+  
+  //Find users based on input ID
+  User.find({
+    _id: { $in: uniqueIds },
+  })
+    .then((data) => {
+      console.log(data);
+      // const matchingUserInfo = [];
+      // data.forEach((user) => {
+      //   matchingUserInfo.push(user.first_name);
+      // });
+      // console.log(matchingUserInfo);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+
+}
+
 
 module.exports = matchesController;
 
