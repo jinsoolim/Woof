@@ -107,12 +107,11 @@ color: ${styledItems.darkGray};
 text-align: center;
 `;
 
-const Profile = () => {
+const Profile = (props) => {
   // CONTEXT API, RELEVENT STATE ELEMENTS
   const [{ userInfo , petInfo }, dispatch] = useStateValue();
   return (
     <OuterDiv>
-
       <HumanInfo>
         <StyledImg src={userInfo.avatarUrl} />
         <CreatureTextArea>
@@ -120,12 +119,12 @@ const Profile = () => {
           <HumanTextDesc>
             <LesserText>{userInfo.email}</LesserText>
             <StyledForm  >
-              <StyledInputRight type="input" placeholder = {`age`}/>
+              <StyledInputRight type="input" name='userAge' value={props.state.userAge} onChange={props.handleChange} placeholder = {`age`}/>
               <LesserText> years old</LesserText>
             </StyledForm>
             <StyledForm  >
               <LesserText>I live in </LesserText>
-              <StyledInputLeft type="input" placeholder = {`location`}/>  
+              <StyledInputLeft type="input" name='userLocation' value={props.state.userLocation} onChange={props.handleChange} placeholder = {`location`}/>  
             </StyledForm>
           </HumanTextDesc>
         </CreatureTextArea>
@@ -136,20 +135,20 @@ const Profile = () => {
 
         <CreatureTextArea>
           <StyledForm>
-            <DogNameInput type="input" placeholder = {`dog name`}/>
+            <DogNameInput type="input" name='petName' value={props.state.petName} onChange={props.handleChange} placeholder = {`dog name`}/>
           </StyledForm>
           <HumanTextDesc>
             <StyledForm>
-              <StyledInputCenter type="input" placeholder = {`age`}/>
+              <StyledInputCenter type="input" name='petAge' value={props.state.petAge} onChange={props.handleChange} placeholder = {`age`}/>
             </StyledForm>
             <StyledForm>
-              <StyledInputCenter type="input" placeholder = {`size`}/>
+              <StyledInputCenter type="input" name='petBreed' value={props.state.petBreed} onChange={props.handleChange} placeholder = {`size`}/>
             </StyledForm>
             <StyledForm>
-              <StyledInputCenter type="input" placeholder = {`breed`}/>
+              <StyledInputCenter type="input" name='petSize' value={props.state.petSize} onChange={props.handleChange} placeholder = {`breed`}/>
             </StyledForm>
             <StyledForm>
-              <StyledInputCenter type="input" placeholder = {`avatar url`}/>
+              <StyledInputCenter type="input" name='petAvatar' value={props.state.petAvatar} onChange={props.handleChange} placeholder = {`avatar url`}/>
             </StyledForm>
           </HumanTextDesc>
         </CreatureTextArea>

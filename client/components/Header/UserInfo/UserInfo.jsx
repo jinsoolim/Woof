@@ -17,6 +17,18 @@ const DisplayInfo = styled.div`
   font-size: 1.4em;
 `;
 
+const StyledImg = styled.img`
+  width: 50px;
+  height: 50px;
+  border-radius: 25px;
+`;
+
+const OverallDiv = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+
 const UserInfo = () => {
   // CONTEXT API, RELEVENT STATE ELEMENTS
   const [{ userInfo, petInfo }, dispatch] = useStateValue();
@@ -64,7 +76,7 @@ const UserInfo = () => {
         render={renderProps => (<Register onClick={renderProps.onClick}>login with facebook</Register>)}
         />;
   } else if(petInfo.name == '') {
-    cornerDiv = <Register>{userInfo.firstName}</Register>;
+    cornerDiv = <div><StyledImg src={userInfo.avatarUrl} /><Register>{userInfo.firstName}</Register></div>;
   } else {
     //console.log(JSON.stringify(userInfo));
     cornerDiv = <div><Register>{userInfo.firstName}</Register><Register>{petInfo.name}</Register></div>;
