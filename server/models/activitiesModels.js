@@ -3,35 +3,40 @@ const Schema = mongoose.Schema;
 
 // SAVING ACTIVITIES SCHEMA FOR MONGODB
 const activitiesSchema = new Schema({
-  coffee: [
-    {
-      user_id: { type: Schema.Types.ObjectId, ref: 'users' }},
-  ],
-  beach: [
-    {
-      user_id: { type: Schema.Types.ObjectId, ref: 'users' }
-    },
-  ],
-  music: [
-    {
-      user_id: { type: Schema.Types.ObjectId, ref: 'users' },
-    },
-  ],
-  walk: [
-    {
-      user_id: { type: Schema.Types.ObjectId, ref: 'users' },
-    },
-  ],
-  hiking: [
-    {
-      user_id: { type: Schema.Types.ObjectId, ref: 'users' },
-    },
-  ],
-  brunch: [
-    {
-      user_id: { type: Schema.Types.ObjectId, ref: 'users' },
-    },
-  ],
+  name: String,
+  users: [{
+      user_id: { type: Schema.Types.ObjectId, ref: 'woof-users' }
+  }]
+  // activity: 
+  // {coffee: [{
+  //     user_id: { type: Schema.Types.ObjectId, ref: 'users' }},
+  //   ]},
+  // beach: [
+  //   {
+  //     user_id: { type: Schema.Types.ObjectId, ref: 'users' }
+  //   },
+  // ],
+  // music: [
+  //   {
+  //     user_id: { type: Schema.Types.ObjectId, ref: 'users' },
+  //   },
+  // ],
+  // walk: [
+  //   {
+  //     user_id: { type: Schema.Types.ObjectId, ref: 'users' },
+  //   },
+  // ],
+  // hiking: [
+  //   {
+  //     user_id: { type: Schema.Types.ObjectId, ref: 'users' },
+  //   },
+  // ],
+  //   activity: 
+  //   {brunch: [
+  //   {
+  //     user_id: { type: Schema.Types.ObjectId, ref: 'users' },
+  //   },
+  // ]},
   // timestamps: true,
 });
 
