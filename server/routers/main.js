@@ -9,7 +9,7 @@ router.get(
   matchesController.getUniqueIds,
   matchesController.returnMatches,
   (req, res) => {
-    res.status(200).json(res.locals.returnMatches);
+    res.status(200).json(res.locals.matchingUsersInfo);
   }
 );
 
