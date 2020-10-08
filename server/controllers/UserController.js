@@ -1,4 +1,5 @@
-const  User = require('../models/UserModels');
+const Activities  = require('../models/ActivitiesModels');
+const User = require('../models/UserModels');
 
 const userController = {};
 
@@ -22,10 +23,8 @@ userController.getUserData = async (req, res, next) => {
 
 
 userController.updateUserData = async (req, res, next) => {
-  //const userData = req.body;
-  // TODO: verify that user name is valid
+
   const { id } = req.params;
-  console.log('req body',req.body);
   console.log('updating id:', id);
   const userData = req.body;
   if (!id) {
@@ -37,7 +36,12 @@ userController.updateUserData = async (req, res, next) => {
 
   // contains the fields from req.body
   const queryResult = await User.findByIdAndUpdate(id, userData, {new: true}); // new true sends back the updated user obj
+  // update the activites collection
   res.locals.data = queryResult;
+  const onlyActivities = queryResult.preferred_activities.map(obj => {
+    return obj.activity.toLowerCase();
+  });
+  Activities.updateMany({name: {$in: onlyActivities}}, { $push: {users: queryResult._id}})
   return next();
 };
 
@@ -58,6 +62,7 @@ userController.deleteUserData = async (req, res, next) => {
 };
 
 userController.createUser = async (req, res, next) => {
+  console.log('====>',req.body);
   const { name, email } = req.body;
   const picURL = req.body.picture.data.url;
 
