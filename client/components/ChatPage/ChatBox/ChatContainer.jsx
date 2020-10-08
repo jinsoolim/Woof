@@ -4,78 +4,71 @@ import { PartnerInfo } from '../PartnerInfo/PartnerInfo.jsx';
 import { InputContainer } from './Chat/InputContainer.jsx';
 import { ChatBoxHeader } from './Chat/ChatBoxHeader.jsx';
 import { ChatBox } from './Chat/ChatBox.jsx';
-import { Message } from './Chat/Message.jsx'
+import { Message } from './Chat/Message.jsx';
 import formatMessage from '../../../../utils/messages';
-
 
 const ChatContainerStyle = styled.div`
 	display: flex;
-	border: 1px solid purple;
+
 	min-height: 100%;
-	min-width: 70%;
+	min-width: 75%;
 `;
 const ChatContainerLeftStyle = styled.div`
 	max-width: 60%;
 	min-width: 60%;
-	border: 1px solid blue;
 `;
 const ChatContainerRightStyle = styled.div`
 	min-width: 40%;
 	border: 1px solid blue;
 	`;
 
-	const socket = io.connect('http://localhost:3000');
 
-	export function ChatContainer({ selectedPartner }) {
-		console.log('selectedPartner: ', selectedPartner);
-		const [userName, setUsername] = useState('');
-		const [messages, setMessages] = useState([]);
-		const [componentMessages, setComponentMessages] = useState([]);
+export function ChatContainer({ selectedPartner }) {
+	console.log('selectedPartner: ', selectedPartner);
+	const [messages, setMessages] = useState([]);
+	const [componentMessages, setComponentMessages] = useState([]);
 
-		// Output message to DOM
-		function outputMessage(message) {
-			messages.push(message);
-			setMessages(messages);
-			let messageList = [];
-			for (let i = 0; i < messages.length; i+=1) {
-				messageList.push(<Message messageInfo={messages[i]} key={`message${i}`} />)
-			}
-			setComponentMessages(messageList);
-			// const div = document.createElement('div');
-			// div.classList.add('message');
-			// div.innerHTML = `<p class="meta">${message.username} <span>${message.time}</span><p class="text">${message.text}</p>`;
-			// document.querySelector('.chat-messages').appendChild(div);
+	// Output message to DOM
+	function outputMessage(message) {
+		messages.push(message);
+		setMessages(messages);
+		let messageList = [];
+		for (let i = 0; i < messages.length; i+=1) {
+			messageList.push(<Message messageInfo={messages[i]} key={`message${i}`} />)
 		}
+		setComponentMessages(messageList);
+		// const div = document.createElement('div');
+		// div.classList.add('message');
+		// div.innerHTML = `<p class="meta">${message.username} <span>${message.time}</span><p class="text">${message.text}</p>`;
+		// document.querySelector('.chat-messages').appendChild(div);
+	}
 
-		// function submitMessage(e) {
-
-		// }
-
-		useEffect(() => {
+	useEffect(() => {
 		const chatForm = document.getElementById('chat-form');
 		const chatMessages = document.querySelector('.chat-box');
 
+		const socket = io.connect('http://localhost:3000');
 
 		// Message from server
 
-		socket.on('friendMessage', message => {
-			console.log("Received message?: ", message);
+		socket.on('friendMessage', (message) => {
+			console.log('Received message?: ', message);
 			message.username = selectedPartner.firstName;
 			outputMessage(message);
 
 			// Scroll down
 			chatMessages.scrollTop = chatMessages.scrollHeight;
-		})
+		});
 
-		socket.on('userMessage', message => {
-			console.log("Sent message?: ", message);
+		socket.on('userMessage', (message) => {
+			console.log('Sent message?: ', message);
 			outputMessage(message);
 
 			// Scroll down
 			chatMessages.scrollTop = chatMessages.scrollHeight;
-		})
+		});
 
-		chatForm.addEventListener('submit', (e)=> {
+		chatForm.addEventListener('submit', (e) => {
 			e.preventDefault();
 
 			// Get message text
