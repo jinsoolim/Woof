@@ -19,7 +19,6 @@ const ChatContainerLeftStyle = styled.div`
 `;
 const ChatContainerRightStyle = styled.div`
 	min-width: 40%;
-	border: 1px solid blue;
 `;
 
 const socket = io.connect('http://localhost:3000');

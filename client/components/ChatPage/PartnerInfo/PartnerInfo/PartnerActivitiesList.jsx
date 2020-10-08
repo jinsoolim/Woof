@@ -11,6 +11,7 @@ const PartnerActivitiesListStyles = styled.div`
 	overflow: scroll;
 	margin-top: 10px;
 	overflow: auto;
+	margin: 10px;
 
 	h3 {
 		margin-top: 10px;

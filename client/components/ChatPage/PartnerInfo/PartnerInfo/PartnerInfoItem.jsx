@@ -10,6 +10,7 @@ const PartnerInfoItemStyles = styled.div`
 	height: 150px;
 	background-color: #5ac4ff;
 	overflow: scroll;
+	margin: 10px;
 `;
 
 export function PartnerInfoItem({ partnerInfo }) {

@@ -9,7 +9,6 @@ const ChatPageStyle = styled.div`
 	min-height: 80%;
 	min-width: 100%;
 	margin: 0 10px;
-	background-color: cornsilk;
 `;
 
 export function ChatPage() {
