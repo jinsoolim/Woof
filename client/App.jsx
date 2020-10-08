@@ -118,7 +118,29 @@ const App = () => {
 				return {
 					...state,
 					userInfo,
-				};
+        };
+        
+      case 'updateMatches':
+        userInfo = Object.assign({}, state.userInfo);
+				petInfo = Object.assign({}, state.petInfo);
+				userInfo.location = action.userInfo.location;
+				userInfo.age = action.userInfo.age;
+				userInfo.activities = action.userInfo.activities;
+				petInfo.name = action.petInfo.name;
+				petInfo.age = action.petInfo.age;
+				petInfo.breed = action.petInfo.breed;
+				petInfo.size = action.petInfo.size;
+        petInfo.avatarUrl = action.petInfo.avatarUrl;
+        console.log("save profile");
+
+        let matchList = action.matchList;
+        console.log('GOODBYE');
+        return {
+          ...state,
+          matchList,
+          userInfo,
+					petInfo,
+        };
 
 			case 'saveProfile':
 				userInfo = Object.assign({}, state.userInfo);
@@ -130,8 +152,8 @@ const App = () => {
 				petInfo.age = action.petInfo.age;
 				petInfo.breed = action.petInfo.breed;
 				petInfo.size = action.petInfo.size;
-				petInfo.avatarUrl = action.petInfo.avatarUrl;
-				console.log(userInfo, petInfo);
+        petInfo.avatarUrl = action.petInfo.avatarUrl;
+        console.log("save profile");
 				return {
 					...state,
 					userInfo,
