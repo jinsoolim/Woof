@@ -6,9 +6,10 @@ const router = express.Router();
 router.get(
   '/',
   matchesController.userActivities,
-  matchesController.findOtherUsers,
+  matchesController.getUniqueIds,
+  matchesController.returnMatches,
   (req, res) => {
-    res.status(200).json(res.locals.matches);
+    res.status(200).json(res.locals.returnMatches);
   }
 );
 

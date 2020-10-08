@@ -24,37 +24,57 @@ matchesController.userActivities = (req, res, next) => {
   });
 };
 
-matchesController.findOtherUsers = (req, res, next) => {
+matchesController.getUniqueIds = (req, res, next) => {
   console.log(`Requesting for activities array`);
   const { activities } = res.locals;
   // console.log(activities)
 
   // const matchesArray = []
-  Activities.find({ name: {$in: activities} })
-            .then(users => {
-              res.locals.matches = users[0].users
-              console.log(res.locals.matches)
-              next();
-            }).catch(err => {
-              console.log(err)
-            })
+  Activities
+      .find({ name: {$in: activities} })
+      .then(users => {
+        // Loop through array of activities to extract the ids. Expect to receive an array of IDs that are not duplicates
+        const arrayOfIds = []
+        users.forEach((activity) => {
+          arrayOfIds.push(activity.users)
+        })
+        // Return a flattened array of IDs with no duplicates. Save result to res.locals
+        // const uniqueIds = new Set(arrayOfIds.flat());
+        res.locals.uniqueIds = arrayOfIds.flat();
+        console.log('uniqueIDs --> ', res.locals.uniqueIds)
+        next();
+      }).catch(err => {
+        console.log(err)
+      })
 }
- 
-// matchesController.returnMatches = (req, res, next) => {
-//   console.log(`Returning Matches`);
-//   const { matchesArray } = res.locals;
-//   console.log(matchesArray)
 
-// }
+//Return list of users with this array
+matchesController.returnMatches = (req, res, next) => {
+  console.log(`Returning Matches`);
+  const { uniqueIds } = res.locals;
+  console.log(res.locals.uniqueIds);
+  console.log(typeof res.locals.uniqueIds[0].toString());
+  
+  // const idString = uniqueIds.map((id) => id.toString())
+  // console.log(idString)
+  
+  //Find users based on input ID
+  User.find({
+    _id: { $in: uniqueIds },
+  })
+    .then((data) => {
+      console.log(data);
+      // const matchingUserInfo = [];
+      // data.forEach((user) => {
+      //   matchingUserInfo.push(user.first_name);
+      // });
+      // console.log(matchingUserInfo);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 
-
-// {
-//   matches: {
-//     coffee: [{user 1}, {user 2}],
-    
-//   }
-
-// }
+}
 
 
 module.exports = matchesController;
