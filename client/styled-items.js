@@ -4,7 +4,6 @@ const styledItems = {
   black: '#000000',
   darkGray: '#4A4A4A',
   lightGray: '#FAFAFA',
-  hidden: 'display: none',
   white: '#FFFFFF',
 };
 
