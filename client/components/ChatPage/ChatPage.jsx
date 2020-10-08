@@ -6,9 +6,9 @@ import { ChatContainer } from './ChatBox/ChatContainer.jsx';
 
 const ChatPageStyle = styled.div`
 	display: flex;
-	border: 1px solid red;
 	min-height: 80%;
 	min-width: 100%;
+	margin: 0 10px;
 `;
 
 export function ChatPage() {
@@ -19,14 +19,18 @@ export function ChatPage() {
 			firstName: 'Gary',
 			location: 'Los Angeles, CA',
 			age: '28',
-			avatarUrl: 'www.blah.com',
-			activities: { coffee: 'i like starbucks' },
+			avatarUrl: 'https://picsum.photos/id/117/300/150',
+			activities: {
+				coffee: 'i like starbucks',
+				hiking: 'not much but sure',
+				walking: 'why?',
+			},
 			petInfo: {
 				name: 'Chico',
 				age: '2',
 				breed: 'Pitbull Terrier Mix',
 				size: 'Medium',
-				avatarUrl: 'https://www.facebook.com/p182020903468349322052',
+				avatarUrl: 'https://picsum.photos/id/237/300/150/',
 			},
 		},
 		{
@@ -34,14 +38,17 @@ export function ChatPage() {
 			firstName: 'Kevin',
 			location: 'Los Angeles, CA',
 			age: '28',
-			avatarUrl: 'www.asdf.com',
-			activities: { xcv: 'i like starbucks' },
+			avatarUrl: 'https://picsum.photos/id/197/300/150/',
+			activities: {
+				xcv: 'i like starbucks',
+				asdf: 'test',
+			},
 			petInfo: {
 				name: 'Chachi',
 				age: '2',
 				breed: 'Pitbull Terrier Mix',
 				size: 'Medium',
-				avatarUrl: 'https://www.test.com',
+				avatarUrl: 'https://picsum.photos/id/222/300/150/',
 			},
 		},
 		{
@@ -49,14 +56,14 @@ export function ChatPage() {
 			firstName: 'John',
 			location: 'Los Angeles, CA',
 			age: '28',
-			avatarUrl: 'www.asdf.com',
+			avatarUrl: 'https://picsum.photos/id/111/300/150/',
 			activities: { asdf: 'i like starbucks' },
 			petInfo: {
 				name: 'Luna',
 				age: '2',
 				breed: 'Kitty Kat',
 				size: 'Tiny thang',
-				avatarUrl: 'https://www.facebook.com/',
+				avatarUrl: 'https://picsum.photos/id/217/300/150/',
 			},
 		},
 	];
@@ -68,6 +75,7 @@ export function ChatPage() {
 				<UserList
 					matchList={matchList}
 					setSelectedPartner={setSelectedPartner}
+					selectedPartner={selectedPartner}
 				/>
 				<ChatContainer selectedPartner={selectedPartner} />
 			</ChatPageStyle>
@@ -78,6 +86,7 @@ export function ChatPage() {
 				<UserList
 					matchList={matchList}
 					setSelectedPartner={setSelectedPartner}
+					selectedPartner={selectedPartner}
 				/>
 				{/* empty divs for placeholders for styling */}
 				<div></div>

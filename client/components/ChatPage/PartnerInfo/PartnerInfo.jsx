@@ -6,12 +6,12 @@ import { PartnerInfoItem } from './PartnerInfo/PartnerInfoItem.jsx';
 import { PartnerPetInfoItem } from './PartnerInfo/PartnerPetInfoItem.jsx';
 
 const PartnerInfoStyle = styled.div`
-	border: 1px solid purple;
 	min-height: 100%;
 	min-width: 40%;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
+	border: 2px solid #aedfff;
 `;
 
 export function PartnerInfo({ selectedPartner }) {
@@ -19,7 +19,7 @@ export function PartnerInfo({ selectedPartner }) {
 		firstName,
 		location,
 		age,
-		avatarUrl,
+		// avatarUrl,
 		activities,
 		petInfo,
 	} = selectedPartner;
@@ -27,11 +27,11 @@ export function PartnerInfo({ selectedPartner }) {
 
 	return (
 		<PartnerInfoStyle>
-			<Avatar url={avatarUrl} />
-			<PartnerInfoItem partnerInfo={partnerInfo} />
-			<Avatar url={petInfo.avatarUrl} />
-			<PartnerPetInfoItem petInfo={petInfo} />
 			<PartnerActivitiesList activities={activities} />
+			{/* <Avatar url={avatarUrl} /> */}
+			<PartnerInfoItem partnerInfo={partnerInfo} />
+			{/* <Avatar url={petInfo.avatarUrl} /> */}
+			<PartnerPetInfoItem petInfo={petInfo} />
 		</PartnerInfoStyle>
 	);
 }

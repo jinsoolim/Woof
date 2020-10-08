@@ -6,10 +6,11 @@ const PartnerInfoItemStyles = styled.div`
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-	width: 90%;
-	height: 200px;
-	border: 1px solid red;
+	width: 70%;
+	height: 150px;
+	background-color: #5ac4ff;
 	overflow: scroll;
+	margin: 10px;
 `;
 
 export function PartnerInfoItem({ partnerInfo }) {
