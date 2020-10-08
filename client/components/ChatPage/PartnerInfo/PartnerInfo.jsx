@@ -19,7 +19,7 @@ export function PartnerInfo({ selectedPartner }) {
 		firstName,
 		location,
 		age,
-		avatarUrl,
+		// avatarUrl,
 		activities,
 		petInfo,
 	} = selectedPartner;
@@ -28,9 +28,9 @@ export function PartnerInfo({ selectedPartner }) {
 	return (
 		<PartnerInfoStyle>
 			<PartnerActivitiesList activities={activities} />
-			<Avatar url={avatarUrl} />
+			{/* <Avatar url={avatarUrl} /> */}
 			<PartnerInfoItem partnerInfo={partnerInfo} />
-			<Avatar url={petInfo.avatarUrl} />
+			{/* <Avatar url={petInfo.avatarUrl} /> */}
 			<PartnerPetInfoItem petInfo={petInfo} />
 		</PartnerInfoStyle>
 	);
