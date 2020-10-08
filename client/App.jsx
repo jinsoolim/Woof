@@ -35,11 +35,12 @@ const App = () => {
 		userInfo: {
 			_id: 0,
 			fullName: '',
-			firstName: 'Stormi',
-			location: 'Los Angeles, CA',
-			age: '23',
+			firstName: '',
+			location: '',
+			age: '',
 			avatarUrl: '',
-			activities: {},
+      activities: {},
+      email: '',
 		},
 		petInfo: {
 			name: '',
@@ -77,15 +78,30 @@ const App = () => {
 
 		switch (action.type) {
 			case 'clickLogin':
-				userInfo = Object.assign({}, state.userInfo);
+        userInfo = Object.assign({}, state.userInfo);
+        petInfo = Object.assign({}, state.petInfo);
+				userInfo._id = action.id;
 				userInfo.fullName = action.full_name;
 				userInfo.firstName = action.first_name;
 				userInfo.email = action.email;
-				userInfo.avatarUrl = action.profile_img;
-				userInfo._id = action.id;
+        userInfo.avatarUrl = action.profile_img;
+        userInfo.age = action.user_age;
+        userInfo.location = action.location;
+        petInfo.name = action.dog_name;
+        petInfo.avatarUrl = action.dog_image;
+        petInfo.age = action.dog_age;
+        petInfo.size = action.dog_size;
+        petInfo.breed = action.dog_breed;
+        userInfo.activities = {};
+        action.preferred_activities.forEach(activity => {
+          userInfo.activities[activity.activity] = activity.description
+        });
+        // console.log('userInfo:',userInfo);
+        // console.log('petInfo:',petInfo);
 				return {
 					...state,
-					userInfo,
+          userInfo,
+          petInfo,
 					loggedIn: true,
 				};
 
@@ -116,8 +132,6 @@ const App = () => {
           petInfo.breed = action.petInfo.breed;
           petInfo.size = action.petInfo.size;
           petInfo.avatarUrl = action.petInfo.avatarUrl;
-          console.log(userInfo);
-          console.log(petInfo);
           return {
             ...state,
             userInfo,

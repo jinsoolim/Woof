@@ -54,11 +54,19 @@ const UserInfo = () => {
         const info = data[0];
         dispatch({ 
           type: 'clickLogin',
+          id: info._id,
           full_name: info.full_name,
           first_name: info.first_name,
           email: info.email,
           profile_img: info.profile_img,
-          id: info._id,
+          user_age: info.user_age,
+          location: info.location,
+          dog_name: info.dog_name,
+          dog_image: info.dog_image,
+          dog_age: info.dog_age,
+          dog_size: info.dog_size,
+          dog_breed: info.dog_breed,
+          preferred_activities: info.preferred_activities,
         });
       })
       .catch((err) => console.log('POST: FB info to DB ERROR: ', err));
