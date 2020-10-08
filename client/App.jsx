@@ -56,8 +56,6 @@ const App = () => {
 
   // define initialState here as an object
   const initialState = {
-    // example initial state:
-    // theme: { primary: 'green' }
     userInfo: {
       _id: 0,
       fullName: '',
@@ -65,14 +63,14 @@ const App = () => {
       location: 'Los Angeles, CA',
       age: '23',
       avatarUrl: '',
-      activities: { coffee: 'i like starbucks', },
+      activities: { },
     },
     petInfo: {
-      name: 'Chico',
-      age: '2',
-      breed: 'Pitbull Terrior Mix',
-      size: 'Medium',
-      avatarUrl: 'https://www.facebook.com/photo/?fbid=1820209034683490&set=picfp.100000832322052',
+      name: '',
+      age: '',
+      breed: '',
+      size: '',
+      avatarUrl: '',
     },
     partnerInfo: {
       _id: 564345532,
@@ -98,11 +96,14 @@ const App = () => {
 
   const reducer = (state, action) => {
     let userInfo;
+    let petInfo;
+
     switch (action.type) {
-      // example case:
-      case 'clickLogin':
-        const userInfo = Object.assign({}, state.userInfo);
-        userInfo.fullName = action.name;
+      
+      case 'clickLogin': 
+        userInfo = Object.assign({}, state.userInfo);
+        userInfo.fullName = action.full_name;
+        userInfo.firstName = action.first_name;
         userInfo.email = action.email;
         userInfo.avatarUrl = action.profile_img;
         userInfo._id = action.id
@@ -119,6 +120,25 @@ const App = () => {
           ...state,
           userInfo,
         };
+
+        case 'saveProfile':
+          userInfo = Object.assign({}, state.userInfo);
+          petInfo = Object.assign({}, state.petInfo);
+          userInfo.location = action.userInfo.location;
+          userInfo.age = action.userInfo.age;
+          // userInfo.activities = action.userInfo.activities;
+          petInfo.name = action.petInfo.name;
+          petInfo.age = action.petInfo.age;
+          petInfo.breed = action.petInfo.breed;
+          petInfo.size = action.petInfo.size;
+          petInfo.avatarUrl = action.petInfo.avatarUrl;
+          console.log(userInfo);
+          console.log(petInfo);
+          return {
+            ...state,
+            userInfo,
+            petInfo,
+          };
       // example component later in the process...
       // import { useStateValue } from './state';
       // const ButtonComponent = () => {
@@ -169,7 +189,6 @@ const App = () => {
       <RouterDiv>
             
             <Switch>
-              {/* <Route exact path='/login' component={Login} /> */}
               <Route exact path='/' component={Login} />
               <Route exact path='/chatpage' component={ChatPage} />
               <Route exact path='/profilepage' component={ProfilePage} />
