@@ -153,8 +153,9 @@ class ProfilePage extends Component {
       });
       console.log(mongoObj);
      
+      console.log('===========>', userInfo._id)
       // send user data & pet data to DB
-      fetch(`/api/updateUserData/${userInfo.id}`, {
+      fetch(`/api/updateUserData/${userInfo._id}`, {
         method: 'PUT',
         headers: {
           "Content-Type": "Application/JSON",
