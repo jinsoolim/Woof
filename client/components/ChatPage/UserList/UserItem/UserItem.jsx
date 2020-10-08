@@ -53,7 +53,7 @@ const PartnersNameStyle = styled.h4`
 	color: #636363;
 `;
 
-export function UserItem({ user, setSelectedPartner, selectedPartner }) {
+export function UserItem({ user, setSelectedPartner, selectedPartner, setMessages, setComponentMessages }) {
 	const { firstName, petInfo, avatarUrl } = user;
 
 	//check to see if user is the selectedPartner;
@@ -65,7 +65,11 @@ export function UserItem({ user, setSelectedPartner, selectedPartner }) {
 	return (
 		<UserItemStyle isCurrentMatchedPartner={isCurrentMatchedPartner}>
 			<LeftAvatarStyle>
-				<PartnersNameStyle onClick={() => setSelectedPartner(user)}>
+				<PartnersNameStyle onClick={() => {
+					setMessages([])
+					setComponentMessages([])
+					setSelectedPartner(user)}
+				}>
 					{firstName} & {petInfo.name}
 				</PartnersNameStyle>
 			</LeftAvatarStyle>

@@ -69,6 +69,8 @@ export function ChatPage() {
 	];
 
 	const [selectedPartner, setSelectedPartner] = useState(null);
+	const [messages, setMessages] = useState([]);
+  const [componentMessages, setComponentMessages] = useState([]);
 	if (selectedPartner) {
 		return (
 			<ChatPageStyle>
@@ -77,7 +79,7 @@ export function ChatPage() {
 					setSelectedPartner={setSelectedPartner}
 					selectedPartner={selectedPartner}
 				/>
-				<ChatContainer selectedPartner={selectedPartner} />
+				<ChatContainer selectedPartner={selectedPartner} messages={messages} setMessages={setMessages} componentMessages={componentMessages} setComponentMessages={setComponentMessages} />
 			</ChatPageStyle>
 		);
 	} else {
@@ -87,6 +89,8 @@ export function ChatPage() {
 					matchList={matchList}
 					setSelectedPartner={setSelectedPartner}
 					selectedPartner={selectedPartner}
+					setMessages={setMessages}
+					setComponentMessages={setComponentMessages}
 				/>
 				{/* empty divs for placeholders for styling */}
 				<div></div>

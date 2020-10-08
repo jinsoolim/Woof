@@ -10,7 +10,7 @@ const UserListStyle = styled.div`
 	overflow: scroll;
 `;
 
-export function UserList({ matchList, setSelectedPartner, selectedPartner }) {
+export function UserList({ matchList, setSelectedPartner, selectedPartner, setMessages, setComponentMessages }) {
 	const displayMatchList = matchList.map((user, idx) => {
 		return (
 			<UserItem
@@ -18,6 +18,8 @@ export function UserList({ matchList, setSelectedPartner, selectedPartner }) {
 				key={`${user}-${idx}`}
 				setSelectedPartner={setSelectedPartner}
 				selectedPartner={selectedPartner}
+				setMessages={setMessages}
+				setComponentMessages={setComponentMessages}
 			/>
 		);
 	});
