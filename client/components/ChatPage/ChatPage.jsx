@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 import { UserList } from './UserList/UserList.jsx';
 import { ChatContainer } from './ChatBox/ChatContainer.jsx';
+import { useStateValue , StateContext } from '../../StateProvider';
 
 const ChatPageStyle = styled.div`
 	display: flex;
@@ -12,61 +13,63 @@ const ChatPageStyle = styled.div`
 `;
 
 export function ChatPage() {
-	//use context to pull down matchlist
-	const matchList = [
-		{
-			_id: 564345532,
-			firstName: 'Gary',
-			location: 'Los Angeles, CA',
-			age: '28',
-			avatarUrl: 'https://picsum.photos/id/117/300/150',
-			activities: {
-				coffee: 'i like starbucks',
-				hiking: 'not much but sure',
-				walking: 'why?',
-			},
-			petInfo: {
-				name: 'Chico',
-				age: '2',
-				breed: 'Pitbull Terrier Mix',
-				size: 'Medium',
-				avatarUrl: 'https://picsum.photos/id/237/300/150/',
-			},
-		},
-		{
-			_id: 1007,
-			firstName: 'Kevin',
-			location: 'Los Angeles, CA',
-			age: '28',
-			avatarUrl: 'https://picsum.photos/id/197/300/150/',
-			activities: {
-				xcv: 'i like starbucks',
-				asdf: 'test',
-			},
-			petInfo: {
-				name: 'Chachi',
-				age: '2',
-				breed: 'Pitbull Terrier Mix',
-				size: 'Medium',
-				avatarUrl: 'https://picsum.photos/id/222/300/150/',
-			},
-		},
-		{
-			_id: 3001,
-			firstName: 'John',
-			location: 'Los Angeles, CA',
-			age: '28',
-			avatarUrl: 'https://picsum.photos/id/111/300/150/',
-			activities: { asdf: 'i like starbucks' },
-			petInfo: {
-				name: 'Luna',
-				age: '2',
-				breed: 'Kitty Kat',
-				size: 'Tiny thang',
-				avatarUrl: 'https://picsum.photos/id/217/300/150/',
-			},
-		},
-	];
+  //use context to pull down matchlist
+  const [{ userInfo, petInfo, matchList}, dispatch] = useStateValue();
+  console.log("MATCHLIST HERE, ", matchList);
+	// const matchList = [
+	// 	{
+	// 		_id: 564345532,
+	// 		firstName: 'Gary',
+	// 		location: 'Los Angeles, CA',
+	// 		age: '28',
+	// 		avatarUrl: 'https://picsum.photos/id/117/300/150',
+	// 		activities: {
+	// 			coffee: 'i like starbucks',
+	// 			hiking: 'not much but sure',
+	// 			walking: 'why?',
+	// 		},
+	// 		petInfo: {
+	// 			name: 'Chico',
+	// 			age: '2',
+	// 			breed: 'Pitbull Terrier Mix',
+	// 			size: 'Medium',
+	// 			avatarUrl: 'https://picsum.photos/id/237/300/150/',
+	// 		},
+	// 	},
+	// 	{
+	// 		_id: 1007,
+	// 		firstName: 'Kevin',
+	// 		location: 'Los Angeles, CA',
+	// 		age: '28',
+	// 		avatarUrl: 'https://picsum.photos/id/197/300/150/',
+	// 		activities: {
+	// 			xcv: 'i like starbucks',
+	// 			asdf: 'test',
+	// 		},
+	// 		petInfo: {
+	// 			name: 'Chachi',
+	// 			age: '2',
+	// 			breed: 'Pitbull Terrier Mix',
+	// 			size: 'Medium',
+	// 			avatarUrl: 'https://picsum.photos/id/222/300/150/',
+	// 		},
+	// 	},
+	// 	{
+	// 		_id: 3001,
+	// 		firstName: 'John',
+	// 		location: 'Los Angeles, CA',
+	// 		age: '28',
+	// 		avatarUrl: 'https://picsum.photos/id/111/300/150/',
+	// 		activities: { asdf: 'i like starbucks' },
+	// 		petInfo: {
+	// 			name: 'Luna',
+	// 			age: '2',
+	// 			breed: 'Kitty Kat',
+	// 			size: 'Tiny thang',
+	// 			avatarUrl: 'https://picsum.photos/id/217/300/150/',
+	// 		},
+	// 	},
+	// ];
 
 	const [selectedPartner, setSelectedPartner] = useState(null);
 	const [messages, setMessages] = useState([]);

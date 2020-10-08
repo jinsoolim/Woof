@@ -1,4 +1,9 @@
 # yeti-crab-professionals
+Coffee&Woof
+  * An activities match dating site for dogs!  
+  (1) Login with your facebook picture!
+
+
 
 Routes
 
