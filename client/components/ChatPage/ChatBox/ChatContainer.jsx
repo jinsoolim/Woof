@@ -88,7 +88,7 @@ export function ChatContainer({ selectedPartner }) {
 	return (
 		<ChatContainerStyle>
 			<ChatContainerLeftStyle>
-				<ChatBoxHeader />
+				<ChatBoxHeader selectedPartner={selectedPartner} />
 				<ChatBox chat={componentMessages} />
 				<InputContainer />
 			</ChatContainerLeftStyle>
