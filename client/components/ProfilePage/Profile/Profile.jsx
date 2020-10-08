@@ -6,7 +6,7 @@ import { useStateValue , StateContext } from '../../../StateProvider';
 import styledItems from '../../../styled-items';
 
 const OuterDiv = styled.div`
-  width: 30%;
+  width: 100;
   align-self: flex-start;
   background-color: ${styledItems.white};
   border: 3px solid ${styledItems.lightGray};

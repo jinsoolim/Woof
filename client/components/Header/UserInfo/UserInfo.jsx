@@ -12,20 +12,25 @@ const Register = styled.div`
   font-size: 1.4em;
 `;
 
-const DisplayInfo = styled.div`
-  color: ${styledItems.darkGray};
-  font-size: 1.4em;
+const OuterDiv = styled.div`
+  margin-right: 100px;
 `;
 
 const StyledImg = styled.img`
-  width: 50px;
-  height: 50px;
-  border-radius: 25px;
+  width: 30px;
+  height: 30px;
+  border-radius: 15px;
+  margin: 10px;
 `;
 
 const OverallDiv = styled.div`
   display: flex;
   flex-direction: column;
+`;
+
+const LineDiv = styled.div`
+  display: flex;
+  align-items: center;  
 `;
 
 
@@ -76,16 +81,16 @@ const UserInfo = () => {
         render={renderProps => (<Register onClick={renderProps.onClick}>login with facebook</Register>)}
         />;
   } else if(petInfo.name == '') {
-    cornerDiv = <div><StyledImg src={userInfo.avatarUrl} /><Register>{userInfo.firstName}</Register></div>;
+    cornerDiv = <LineDiv><StyledImg src={userInfo.avatarUrl} /><Register>{userInfo.firstName}</Register></LineDiv>;
   } else {
     //console.log(JSON.stringify(userInfo));
-    cornerDiv = <div><Register>{userInfo.firstName}</Register><Register>{petInfo.name}</Register></div>;
+    cornerDiv = <OverallDiv><LineDiv><StyledImg src={userInfo.avatarUrl} /><Register>{userInfo.firstName}</Register></LineDiv><LineDiv><StyledImg src={petInfo.avatarUrl} /><Register>{petInfo.name}</Register></LineDiv></OverallDiv>;
   }
   
   return (
-    <div>
+    <OuterDiv>
        <Link to="/profilepage">{cornerDiv}</Link>
-    </div>
+    </OuterDiv>
   );
 }
 
