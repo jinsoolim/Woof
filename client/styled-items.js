@@ -3,8 +3,8 @@ const styledItems = {
   secondaryBlue: '#F3F8FF',
   black: '#000000',
   darkGray: '#4A4A4A',
-  lightGray: '#FAFAFA',
-  white: '#FFFFFF',
+  lightGray: '#575757',
+  hidden: 'display: none',
 };
 
 export default styledItems;

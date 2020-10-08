@@ -2,10 +2,10 @@ import React from "react";
 import {Link} from "react-router-dom";
 import styled from 'styled-components';
 // CONTEXT API IMPORT
-import { useStateValue , StateContext } from '../../../../StateProvider';
+import { useStateValue , StateContext } from '../../../../../StateProvider';
 
 
-const ActivityItem = () => {
+const ChatQuery = () => {
   // CONTEXT API, RELEVENT STATE ELEMENTS
   const [{ userName }, dispatch] = useStateValue();
   return (
@@ -14,4 +14,4 @@ const ActivityItem = () => {
   );
 }
 
-export default ActivityItem;
+export default ChatQuery;

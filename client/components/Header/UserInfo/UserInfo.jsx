@@ -1,6 +1,7 @@
 import React from "react";
 import {Link} from "react-router-dom";
 import styled from 'styled-components';
+// CONTEXT API IMPORT
 import { useStateValue , StateContext } from '../../../StateProvider';
 import styledItems from '../../../styled-items';
 import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props'
@@ -10,27 +11,10 @@ const Register = styled.div`
   font-size: 1.4em;
 `;
 
-const OuterDiv = styled.div`
-  margin-right: 100px;
+const DisplayInfo = styled.div`
+  color: ${styledItems.darkGray};
+  font-size: 1.4em;
 `;
-
-const StyledImg = styled.img`
-  width: 30px;
-  height: 30px;
-  border-radius: 15px;
-  margin: 10px;
-`;
-
-const OverallDiv = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
-
-const LineDiv = styled.div`
-  display: flex;
-  align-items: center;  
-`;
-
 
 const UserInfo = () => {
   // CONTEXT API, RELEVENT STATE ELEMENTS
@@ -51,20 +35,17 @@ const UserInfo = () => {
       .then((data) => {
         // data contains email, first_name, full_name, profile_img
         console.log('response from server', data);
-        const info = data[0];
-        dispatch({ 
-          type: 'clickLogin',
-          full_name: info.full_name,
-          first_name: info.first_name,
-          email: info.email,
-          profile_img: info.profile_img,
-          id: info._id,
-        });
       })
       .catch((err) => console.log('POST: FB info to DB ERROR: ', err));
 
       // send user to destination
-      // console.log(`You're logged in ${response.name}, ${response.email}, ${response.picture.data.url}`); 
+      console.log(`You're logged in ${response.name}, ${response.email}, ${response.picture.data.url}`); 
+
+      dispatch({ type: 'clickLogin',
+                name: response.name,
+                email: response.email,
+                profileImage: response.picture.data.url,
+              })
     }
   }
 
@@ -72,23 +53,23 @@ const UserInfo = () => {
   let cornerDiv;
   if(userInfo.fullName == '') {
     cornerDiv = 
-     <FacebookLogin 
+      <FacebookLogin 
         fields="name, email, picture" 
         appId="371520144220769" 
         callback={responseFacebook} 
         render={renderProps => (<Register onClick={renderProps.onClick}>login with facebook</Register>)}
         />;
   } else if(petInfo.name == '') {
-    cornerDiv = <LineDiv><StyledImg src={userInfo.avatarUrl} /><Register>{userInfo.firstName}</Register></LineDiv>;
+    cornerDiv = <Register>{userInfo.firstName}</Register>;
   } else {
     //console.log(JSON.stringify(userInfo));
-    cornerDiv = <OverallDiv><LineDiv><StyledImg src={userInfo.avatarUrl} /><Register>{userInfo.firstName}</Register></LineDiv><LineDiv><StyledImg src={petInfo.avatarUrl} /><Register>{petInfo.name}</Register></LineDiv></OverallDiv>;
+    cornerDiv = <div><Register>{userInfo.firstName}</Register><Register>{petInfo.name}</Register></div>;
   }
   
   return (
-    <OuterDiv>
-       <Link to="/profilepage">{cornerDiv}</Link>
-    </OuterDiv>
+    <div>
+      {cornerDiv}
+    </div>
   );
 }
 

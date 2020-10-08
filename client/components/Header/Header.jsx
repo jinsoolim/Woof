@@ -12,17 +12,16 @@ const HeaderBG = styled.div`
   padding: 20px;
   display: flex;
   justify-content: space-between;
-  width: 100%;
 `;
 
 const Logo = styled.div`
-  font-size: 2em;
+  font-size: 2em; 
   color: ${styledItems.darkGray};
   font-weight: 100;
 `;
 
 const BlackText = styled.span`
-  color: ${styledItems.black};
+  color: ${styledItems.black}; 
   font-weight: 800;
 `
 

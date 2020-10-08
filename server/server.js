@@ -1,12 +1,12 @@
 const path = require('path');
 const express = require('express');
 const socketio = require('socket.io');
-const bodyParser = require("body-parser");
+const formatMessage = require('../utils/messages');
 const cookieParser = require('cookie-parser');
 const mongoose = require('mongoose');
-const usersRouter = require("./routers/users");
+const loginRouter = require("./routers/login");
 const mainRouter = require('./routers/main.js')
-const formatMessage = require('../utils/messages');
+const bodyParser = require("body-parser");
 
 // SETTING UP SERVER
 const app = express();
@@ -38,13 +38,16 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, '../client/')));
 
 
-app.use("/api", usersRouter);
+app.use("/api", loginRouter);
 app.use("/main", mainRouter);
 
 // DIRECT ALL INCOMING TRAFFIC TO HOMEPAGE
 app.use('/', (req, res) => {
   res.sendFile(path.join(__dirname, '../index.html'));
 });
+
+
+console.log(__dirname);
 
 const botName = 'WoofBot';
 
@@ -73,13 +76,9 @@ io.on('connection', socket => {
   // });
 
   // Listen for chat message
-  socket.on('userMessage', ({ username, text}) => {
-    io.emit('friendMessage', formatMessage(username, text));
+  socket.on('chatMessage', msg => {
+    io.emit('message', formatMessage('USER', msg));
   })
-
-  socket.on('friendMessage', ({ username, text }) => {
-    io.emit('userMessage', formatMessage(username, text))
-  });
 
   // Runs when client disconnects
   socket.on('disconnect', () => {
