@@ -31,7 +31,7 @@ const usersSchema = new Schema({
   //timestamps: true,
 });
 
-const User = mongoose.model('user', usersSchema);
+const User = mongoose.model('Woof-users', usersSchema);
 
 
 module.exports = User;

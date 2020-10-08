@@ -1,5 +1,6 @@
 import React from "react";
 import {Link} from "react-router-dom";
+// import {useHistory} from "react-router";
 import styled from 'styled-components';
 // CONTEXT API IMPORT
 import { useStateValue , StateContext } from '../../../StateProvider';
@@ -35,17 +36,20 @@ const UserInfo = () => {
       .then((data) => {
         // data contains email, first_name, full_name, profile_img
         console.log('response from server', data);
+        const info = data[0];
+        dispatch({ 
+          type: 'clickLogin',
+          full_name: info.full_name,
+          first_name: info.first_name,
+          email: info.email,
+          profile_img: info.profile_img,
+          id: info._id,
+        });
       })
       .catch((err) => console.log('POST: FB info to DB ERROR: ', err));
 
       // send user to destination
-      console.log(`You're logged in ${response.name}, ${response.email}, ${response.picture.data.url}`); 
-
-      dispatch({ type: 'clickLogin',
-                name: response.name,
-                email: response.email,
-                profileImage: response.picture.data.url,
-              })
+      // console.log(`You're logged in ${response.name}, ${response.email}, ${response.picture.data.url}`); 
     }
   }
 
@@ -53,7 +57,7 @@ const UserInfo = () => {
   let cornerDiv;
   if(userInfo.fullName == '') {
     cornerDiv = 
-      <FacebookLogin 
+     <FacebookLogin 
         fields="name, email, picture" 
         appId="371520144220769" 
         callback={responseFacebook} 
@@ -68,7 +72,7 @@ const UserInfo = () => {
   
   return (
     <div>
-      {cornerDiv}
+       <Link to="/profilepage">{cornerDiv}</Link>
     </div>
   );
 }

@@ -4,7 +4,7 @@ const socketio = require('socket.io');
 const formatMessage = require('../utils/messages');
 const cookieParser = require('cookie-parser');
 const mongoose = require('mongoose');
-const loginRouter = require("./routers/login");
+const usersRouter = require("./routers/users");
 const mainRouter = require('./routers/main.js')
 const bodyParser = require("body-parser");
 
@@ -38,7 +38,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, '../client/')));
 
 
-app.use("/api", loginRouter);
+app.use("/api", usersRouter);
 app.use("/main", mainRouter);
 
 // DIRECT ALL INCOMING TRAFFIC TO HOMEPAGE
