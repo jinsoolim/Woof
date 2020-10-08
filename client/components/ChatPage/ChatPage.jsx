@@ -13,6 +13,7 @@ const ChatPage = () => {
   const [{ userName }, dispatch] = useStateValue();
   return (
     <div>
+      CHATPAGE
       <UserList />
       <ChatBox />
       <PartnerInfo />

@@ -25,6 +25,10 @@
   color: black;
 }
 
+#app {
+  width: 100%;
+}
+
 body {
   background-color: #F3F8FF;
   display: flex;
