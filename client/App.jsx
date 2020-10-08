@@ -35,9 +35,9 @@ const App = () => {
 		userInfo: {
 			_id: 0,
 			fullName: '',
-			firstName: 'Stormi',
-			location: 'Los Angeles, CA',
-			age: '23',
+			firstName: '',
+			location: '',
+			age: '',
 			avatarUrl: '',
 			activities: {},
 		},
