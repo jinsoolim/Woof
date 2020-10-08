@@ -132,6 +132,7 @@ const App = () => {
           petInfo.breed = action.petInfo.breed;
           petInfo.size = action.petInfo.size;
           petInfo.avatarUrl = action.petInfo.avatarUrl;
+          console.log(userInfo, petInfo);
           return {
             ...state,
             userInfo,
