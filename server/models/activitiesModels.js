@@ -4,10 +4,8 @@ const Schema = mongoose.Schema;
 // SAVING ACTIVITIES SCHEMA FOR MONGODB
 const activitiesSchema = new Schema({
   name: String,
-  users: [{
-      user_id: { type: Schema.Types.ObjectId, ref: 'woof-users' }
-  }]
-  // activity: 
+  users: [{ type: Schema.Types.ObjectId, ref: 'users' }],
+  // activity:
   // {coffee: [{
   //     user_id: { type: Schema.Types.ObjectId, ref: 'users' }},
   //   ]},
@@ -31,7 +29,7 @@ const activitiesSchema = new Schema({
   //     user_id: { type: Schema.Types.ObjectId, ref: 'users' },
   //   },
   // ],
-  //   activity: 
+  //   activity:
   //   {brunch: [
   //   {
   //     user_id: { type: Schema.Types.ObjectId, ref: 'users' },
