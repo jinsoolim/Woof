@@ -56,12 +56,23 @@ const ActivityItem = (props) => {
     </StyledForm>;
   }
 
+  const activityClick = () => {
+    if(activityName in userInfo.activities) {
+      dispatch({ 
+        type: 'removeActivity',
+        activity: activityName,
+      })
+    } else {
+    dispatch({ 
+      type: 'addActivity',
+      activity: activityName,
+    })
+    }
+  }
+
   return (
     <OuterDiv>
-      <ButtonDiv onClick={() => {dispatch({ 
-          type: 'addActivity',
-          activity: activityName,
-        })}}>
+      <ButtonDiv onClick={() => activityClick()}>
         {activityName}
       </ButtonDiv>
       {formItem}

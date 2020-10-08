@@ -93,6 +93,14 @@ const App = () => {
           userInfo,
         };
 
+        case 'removeActivity': 
+        userInfo = Object.assign({}, state.userInfo);
+        delete userInfo.activities[action.activity];
+        return {
+          ...state,
+          userInfo,
+        };
+
         case 'saveProfile':
           userInfo = Object.assign({}, state.userInfo);
           petInfo = Object.assign({}, state.petInfo);
