@@ -34,15 +34,8 @@ export function ChatContainer({ selectedPartner }) {
 		messages.push(message);
 		setMessages(messages);
 		let messageList = [];
-<<<<<<< HEAD
 		for (let i = 0; i < messages.length; i+=1) {
 			messageList.push(<Message messageInfo={messages[i]} key={`message${i}`} selectedPartner={selectedPartner} currentId={userInfo._id} userInfo={userInfo}/>)
-=======
-		for (let i = 0; i < messages.length; i += 1) {
-			messageList.push(
-				<Message messageInfo={messages[i]} key={`message${i}`} />
-			);
->>>>>>> 1256a44f28bb406e653d7a9ba1f9b9da2aefbeb0
 		}
 		setComponentMessages(messageList);
 		// const div = document.createElement('div');
