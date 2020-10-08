@@ -11,10 +11,14 @@ const UserListStyle = styled.div`
 `;
 
 export function UserList({ matchList, setSelectedPartner, selectedPartner }) {
+  console.log("matchList",matchList);
+
 	const displayMatchList = matchList.map((user, idx) => {
 		return (
 			<UserItem
-				user={user}
+        user={user} 
+        avatarUrl = {user.avatarUrl}
+        petInfo = {user.petInfo}
 				key={`${user}-${idx}`}
 				setSelectedPartner={setSelectedPartner}
 				selectedPartner={selectedPartner}

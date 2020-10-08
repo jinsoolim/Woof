@@ -15,6 +15,7 @@ const ChatPageStyle = styled.div`
 export function ChatPage() {
   //use context to pull down matchlist
   const [{ userInfo, petInfo, matchList}, dispatch] = useStateValue();
+  console.log("MATCHLIST HERE, ", matchList);
 	// const matchList = [
 	// 	{
 	// 		_id: 564345532,
@@ -69,8 +70,6 @@ export function ChatPage() {
 	// 		},
 	// 	},
 	// ];
-
-  console.log(matchList);
 
 	const [selectedPartner, setSelectedPartner] = useState(null);
 	if (selectedPartner) {
