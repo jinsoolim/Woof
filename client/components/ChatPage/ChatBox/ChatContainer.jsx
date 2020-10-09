@@ -23,11 +23,9 @@ const ChatContainerRightStyle = styled.div`
 `;
 
 export function ChatContainer({ selectedPartner }) {
-	console.log('selectedPartner: ', selectedPartner);
 	const [messages, setMessages] = useState([]);
-  const [componentMessages, setComponentMessages] = useState([]);
-  // CONTEXT API, RELEVENT STATE ELEMENTS
-  const [{ userInfo , petInfo }, dispatch] = useStateValue();
+	const [componentMessages, setComponentMessages] = useState([]);
+	const [{ userInfo , petInfo }, dispatch] = useStateValue();
 
 	// Output message to DOM
 	function outputMessage(message) {
@@ -44,6 +42,8 @@ export function ChatContainer({ selectedPartner }) {
 		// document.querySelector('.chat-messages').appendChild(div);
 	}
 
+
+
 	useEffect(() => {
 		const chatForm = document.getElementById('chat-form');
 		const chatMessages = document.querySelector('.chat-box');
@@ -52,17 +52,8 @@ export function ChatContainer({ selectedPartner }) {
 
 		// Message from server
 
-		socket.on('friendMessage', (message) => {
-			console.log('Received message?: ', message);
-			message.username = selectedPartner.firstName;
-			outputMessage(message);
-
-			// Scroll down
-			chatMessages.scrollTop = chatMessages.scrollHeight;
-		});
-
-		socket.on('userMessage', (message) => {
-			console.log('Sent message?: ', message);
+		socket.on('message', (message) => {
+			console.log("message: ", message);
 			outputMessage(message);
 
 			// Scroll down
@@ -75,17 +66,17 @@ export function ChatContainer({ selectedPartner }) {
 			// Get message text
 			const msg = e.target.elements.msg.value;
 
-			const send = formatMessage('Me', msg);
-
+			const send = formatMessage(userInfo.firstName, msg, userInfo._id);
+			console.log(send);
 			// Emitting a message to the server
-			socket.emit('userMessage', send);
+			socket.emit('chatMessage', send);
 
 			// Clear input
 			e.target.elements.msg.value = '';
 			e.target.elements.msg.focus();
 		});
 	}, []);
-  
+
 	return (
 		<ChatContainerStyle>
 			<ChatContainerLeftStyle>

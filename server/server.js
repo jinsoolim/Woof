@@ -44,8 +44,6 @@ app.use('/', (req, res) => {
   res.sendFile(path.join(__dirname, '../index.html'));
 });
 
-const botName = 'WoofBot';
-
 // GLOBAL ERROR HANDLER
 app.use((err, req, res, next) => {
   const defaultErr = {
@@ -60,28 +58,28 @@ app.use((err, req, res, next) => {
 });
 
 // Run when a client connects
+const botName = 'WoofBot';
+// Run when a client connects
 io.on('connection', socket => {
   console.log("A USER CONNECTED!");
+
   // socket.on('joinRoom', ({ username, room }) => {
   // Welcome current user
-  socket.emit('message', formatMessage(botName, 'Welcome to testchat!'))
+  console.log(botName);
+  socket.emit('message', formatMessage(botName, 'Welcome to WoofChat!', 1))
 
   // Broadcast when a user connects
-  socket.broadcast.emit('message', formatMessage(botName, 'A user has joined the chat!'));
+  socket.broadcast.emit('message', formatMessage(botName, 'A user has joined the chat!', 1));
   // });
 
   // Listen for chat message
-  socket.on('userMessage', ({ username, text}) => {
-    io.emit('friendMessage', formatMessage(username, text));
-  })
-
-  socket.on('friendMessage', ({ username, text }) => {
-    io.emit('userMessage', formatMessage(username, text))
+  socket.on('chatMessage', ({ username, text, userID}) => {
+    io.emit('message', formatMessage(username, text, userID));
   });
 
   // Runs when client disconnects
   socket.on('disconnect', () => {
-    io.emit('message', formatMessage(botName, 'A user has left the chat!'));
+    io.emit('message', formatMessage(botName, 'A user has left the chat!', 1));
   });
 });
 // STARTUP LOGS
