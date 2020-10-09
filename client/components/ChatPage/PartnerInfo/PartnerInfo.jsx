@@ -23,7 +23,8 @@ export function PartnerInfo({ selectedPartner }) {
 		activities,
 		petInfo,
 	} = selectedPartner;
-	const partnerInfo = { firstName, location, age };
+  const partnerInfo = { firstName, location, age };
+  console.log("activity", activities);
 
 	return (
 		<PartnerInfoStyle>
