@@ -8,7 +8,6 @@ const PartnerActivitiesListStyles = styled.div`
 	width: 70%;
 	height: 150px;
 	background-color: #5ac4ff;
-	overflow: scroll;
 	margin-top: 10px;
 	overflow: auto;
 	margin: 10px;
@@ -22,7 +21,6 @@ const PartnerActivitiesListStyles = styled.div`
 		width: 100%;
 		max-width: 100%;
 		justify-content: space-evenly;
-		overflow: scroll;
 		white-space: wrap;
 
 		div {
