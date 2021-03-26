@@ -1,10 +1,13 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import styled from 'styled-components';
 // CONTEXT API IMPORT
 import { useStateValue, StateContext } from '../../StateProvider';
 import styledItems from '../../styled-items';
 import UserInfo from './UserInfo/UserInfo.jsx';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faPaw } from '@fortawesome/free-solid-svg-icons'
+
 
 const HeaderBG = styled.div`
 	background-color: ${styledItems.primaryBlue};
@@ -13,24 +16,33 @@ const HeaderBG = styled.div`
 	display: flex;
 	justify-content: space-between;
 	width: 100%;
+	position: sticky;
+	top: 0;
 `;
 
 const Logo = styled.div`
 	font-size: 2em;
-	color: ${styledItems.darkGray};
 	font-weight: 100;
+	margin: 20px 0 0 45px;
 `;
 
-const BlackText = styled.span`
-	color: ${styledItems.black};
-	font-weight: 800;
+const WhiteText = styled.span`
+	color: ${styledItems.white};
+	font-weight: bold;
+	font-family: Arial-Black, Arial, Helvetica;
+	letter-spacing: 5px;
+	padding-left: 5px;
 `;
+
+
 
 const Header = () => {
 	return (
 		<HeaderBG>
 			<Logo>
-				Coffee<BlackText>&</BlackText>Woof
+				<Link to="/profilepage">
+					<FontAwesomeIcon icon={faPaw} /> <WhiteText>woof</WhiteText>
+				</Link>
 			</Logo>
 			<UserInfo />
 		</HeaderBG>

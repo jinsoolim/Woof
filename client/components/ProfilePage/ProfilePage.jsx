@@ -129,7 +129,7 @@ class ProfilePage extends Component {
       // console.log(stockActivities);
       // console.log(userInfo);
 
-      // dispatch({ 
+      // dispatch({
       //   type: 'saveProfile',
       //   userInfo,
       //   petInfo,
@@ -153,7 +153,7 @@ class ProfilePage extends Component {
         mongoObj.preferred_activities.push({'activity': activity, 'description': description })
       });
       // console.log(mongoObj);
-     
+
       // console.log('===========>', userInfo._id)
       // send user data & pet data to DB
       fetch(`/api/updateUserData/${userInfo._id}`, {
@@ -193,14 +193,14 @@ class ProfilePage extends Component {
           };
         });
         console.log('HELLO');
-        dispatch({ 
+        dispatch({
           type: 'updateMatches',
           matchList,
           userInfo,
           petInfo,
         });
       })
-      .catch((err) => console.log('POST: PROFILE INFO to DB ERROR: ', err));      
+      .catch((err) => console.log('POST: PROFILE INFO to DB ERROR: ', err));
     }
 
     return (

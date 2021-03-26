@@ -7,7 +7,7 @@
     "test": "jest --verbose",
     "start": "nodemon server/server.js",
     "build": "webpack",
-    "dev": "concurrently \"webpack-dev-server --open --mode development\" \"nodemon server/server.js\""
+    "dev": "concurrently \"webpack serve --config webpack.config.js --mode development\" \"nodemon server/server.js\""
   },
   "repository": {
     "type": "git",
@@ -20,6 +20,9 @@
   },
   "homepage": "https://github.com/andrew-lovato/petrospective#readme",
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^1.2.35",
+    "@fortawesome/free-solid-svg-icons": "^5.15.3",
+    "@fortawesome/react-fontawesome": "^0.1.14",
     "bcrypt": "^5.0.0",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
@@ -57,7 +60,7 @@
     "supertest": "^5.0.0",
     "w": "^1.1.0",
     "webpack": "^4.44.2",
-    "webpack-cli": "^3.3.12",
+    "webpack-cli": "^4.2.0",
     "webpack-dev-server": "^3.11.0"
   }
 }

@@ -50,20 +50,20 @@ const ActivityItem = (props) => {
 
   let formItem;
   if(activityName in userInfo.activities) {
-    formItem = 
-    <StyledForm  >
+    formItem =
+    <StyledForm onSubmit={(e) => e.preventDefault()} >
       <StyledInput type="input" name={props.activity} value={props.state[activityName]} onChange={props.handleChange} placeholder = {`I like ${activityName}`}/>
     </StyledForm>;
   }
 
   const activityClick = () => {
     if(activityName in userInfo.activities) {
-      dispatch({ 
+      dispatch({
         type: 'removeActivity',
         activity: activityName,
       })
     } else {
-    dispatch({ 
+    dispatch({
       type: 'addActivity',
       activity: activityName,
     })

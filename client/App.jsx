@@ -119,7 +119,7 @@ const App = () => {
 					...state,
 					userInfo,
         };
-        
+
       case 'updateMatches':
         userInfo = Object.assign({}, state.userInfo);
 				petInfo = Object.assign({}, state.petInfo);
@@ -132,7 +132,7 @@ const App = () => {
 				petInfo.size = action.petInfo.size;
         petInfo.avatarUrl = action.petInfo.avatarUrl;
         console.log("save profile");
-        
+
         let matchList = action.matchList;
         console.log('Hello',matchList);
         return {

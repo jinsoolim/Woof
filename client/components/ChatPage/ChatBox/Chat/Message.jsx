@@ -43,8 +43,8 @@ export function Message({ messageInfo, selectedPartner, currentId }) {
   const userAvatar = userInfo.avatarUrl;
   const userPetAvatar = petInfo.avatarUrl;
 
-  let userItem = <StyledText className='message'>{userInfo.firstName}: {textString}<StyledImg src={userAvatar}/><StyledImg src={userPetAvatar}/><StyledTime>{timeString}</StyledTime></StyledText>;
-  let partnerItem = <StyledPartnerText className='message'><StyledTime>{timeString}</StyledTime><StyledImg src={partnerAvatar}/><StyledImg src={partnerPetAvatar}/>{selectedPartner.firstName}: {textString}</StyledPartnerText>
+  let userItem = <StyledText className='message'>{userInfo.firstName}: {textString}<StyledImg src={userAvatar}/><StyledImg src={userPetAvatar}/><StyledTime style={{color: "orange"}}>{timeString}</StyledTime></StyledText>;
+  let partnerItem = <StyledPartnerText className='message'><StyledTime style={{color: "orange"}}>{timeString}</StyledTime><StyledImg src={partnerAvatar}/><StyledImg src={partnerPetAvatar}/>{selectedPartner.firstName}: {textString}</StyledPartnerText>
   let chatItem = userItem;
   if (messageInfo.userID != currentId) chatItem = partnerItem;
   return (

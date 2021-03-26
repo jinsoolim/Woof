@@ -6,12 +6,15 @@ import styledItems from '../../../styled-items';
 import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props'
 
 const Register = styled.div`
-  color: ${styledItems.darkGray};
+  color: ${styledItems.white};
   font-size: 1.4em;
+  font-weight: bold;
 `;
 
 const OuterDiv = styled.div`
-  margin-right: 100px;
+  margin: 20px 45px 0 0;
+  display: flex;
+  flex-direction: column;
   &:hover {
     cursor: pointer;
   }
@@ -24,14 +27,9 @@ const StyledImg = styled.img`
   margin: 10px;
 `;
 
-const OverallDiv = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
-
 const LineDiv = styled.div`
   display: flex;
-  align-items: center;  
+  align-items: center;
 `;
 
 
@@ -55,7 +53,7 @@ const UserInfo = () => {
         // data contains email, first_name, full_name, profile_img
         console.log('response from server', data);
         const info = data[0];
-        dispatch({ 
+        dispatch({
           type: 'clickLogin',
           id: info._id,
           full_name: info.full_name,
@@ -75,38 +73,46 @@ const UserInfo = () => {
       .catch((err) => console.log('POST: FB info to DB ERROR: ', err));
 
       // send user to destination
-      // console.log(`You're logged in ${response.name}, ${response.email}, ${response.picture.data.url}`); 
+      // console.log(`You're logged in ${response.name}, ${response.email}, ${response.picture.data.url}`);
     }
-  }
-
-  const modifyDirection = () => {
-    redirection = <Redirect to="/profilepage" />;
   }
 
   // CONDITIONAL RENDERING OF CORNER DIV
   let cornerDiv;
-  let redirection;
   if(userInfo.fullName == '') {
-    cornerDiv = 
-     <FacebookLogin 
-        fields="name, email, picture" 
-        appId="371520144220769" 
-        callback={responseFacebook} 
+    cornerDiv =
+     <FacebookLogin
+        fields="name, email, picture"
+        appId="371520144220769"
+        callback={responseFacebook}
         render={renderProps => (<Register onClick={renderProps.onClick}>login with facebook</Register>)}
         />;
   } else if(petInfo.name == '') {
-    cornerDiv = <Link to="/profilepage" ><LineDiv><StyledImg src={userInfo.avatarUrl} /><Register>{userInfo.firstName}</Register></LineDiv></Link>;
-    redirection = <Redirect to="/profilepage" />;
+    cornerDiv =
+      <Link to="/profilepage" >
+        <LineDiv>
+          <StyledImg src={userInfo.avatarUrl} />
+          <Register>{userInfo.firstName}</Register>
+        </LineDiv>
+      </Link>;
   } else {
     //console.log(JSON.stringify(userInfo));
-    cornerDiv = <Link to="/profilepage" ><OverallDiv><LineDiv><StyledImg src={userInfo.avatarUrl} /><Register>{userInfo.firstName}</Register></LineDiv><LineDiv><StyledImg src={petInfo.avatarUrl} /><Register>{petInfo.name}</Register></LineDiv></OverallDiv></Link>;
-    redirection = <Redirect to="/profilepage" />;
+    cornerDiv =
+      <Link to="/profilepage" >
+        <LineDiv>
+          <StyledImg src={userInfo.avatarUrl} />
+          <Register>{userInfo.firstName}</Register>
+        </LineDiv>
+        <LineDiv>
+            <StyledImg src={petInfo.avatarUrl} />
+            <Register>{petInfo.name}</Register>
+        </LineDiv>
+      </Link>;
   }
-  
+
   return (
     <OuterDiv>
        {cornerDiv}
-       {redirection}
     </OuterDiv>
   );
 }
